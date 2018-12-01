@@ -1,4 +1,4 @@
-# CatHub (COMS-4170 Final Project)
+# CatHub
 
 Chunlin Zhu
 Guanming Qiao
