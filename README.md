@@ -1,4 +1,6 @@
 # CatHub
 
-Chunlin Zhu
-Guanming Qiao
+### Author
+Guanming Qiao, Xingjian Wu, Binwei Xu, Chunlin Zhu
+
+### Description
