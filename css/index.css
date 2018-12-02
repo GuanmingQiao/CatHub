@@ -5,6 +5,17 @@ body {
     background-repeat: repeat;
 }
 
+p, h1 {
+    font-family: "Verdana", Verdana, serif;
+}
+
+h1 {
+    font-size: 80px;
+    color: white;
+    text-shadow: 2px 2px #666;
+}
+
+
 .container {
     display: inline;
     text-align: center;
