@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="./js/libgif.js"></script>
     <script type="text/javascript" src="./js/rubbable.js"></script>
+    <script type="text/javascript" src="./js/GIFEncoder.js"></script>
+    <script type="text/javascript" src="./js/b64.js"></script>
+    <script type="text/javascript" src="./js/LZWEncoder.js"></script>
+    <script type="text/javascript" src="./js/NeuQuant.js"></script>
+    <script src="./js/CCapture.all.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>
         Example gif
@@ -19,12 +24,47 @@
     <br>
     <script type="text/javascript">
         var sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext('2d');
+
         sup1.load(function(){
-            enterLoop(0, sup1.get_length())
+            var grabLimit = sup1.get_length();  // Number of screenshots to take
+            var shots  = [];
+            var grabRate  = 600; // Miliseconds. 500 = half a second, this gives enterLoop 1 extra second to load
+            var count     = 0;
+
+            enterLoop(0, grabLimit);
+
+            var encoder = new GIFEncoder();
+            encoder.setRepeat(0);  //0  -> loop forever, 1+ -> loop n times then stop
+            encoder.setDelay(grabRate); //go to next frame every n milliseconds
+            encoder.start();
+
+            function showResults() {
+                console.log('Finishing');
+                encoder.finish();
+                var binary_gif = encoder.stream().getData();
+                var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+                var p = document.createElement('p'); // is a node
+                p.innerHTML = '<img src="' + data_url + '"/>\n';
+                document.getElementsByTagName('body')[0].appendChild(p);
+            }
+
+            var grabber = setInterval(function(){
+                count++;
+                if (count>grabLimit) {
+                    clearInterval(grabber);
+                    showResults();
+                } else {
+                    var imdata = ctx.getImageData(0,0,canvas.width,canvas.height);
+                    encoder.addFrame(ctx);
+                }
+                // var img = canvas.toDataURL("image/png");
+                // shots.push(img);
+            }, grabRate);
         })
+
         function enterLoop(index, length){
-            const canvas = document.getElementById("myCanvas")
-            const ctx = canvas.getContext('2d');
             logo_image = new Image();
             logo_image.src = 'assets/logo.jpg';
             logo_image.onload = function(){
@@ -34,24 +74,21 @@
                 frame_image.onload = function(){
                     ctx.drawImage(frame_image, 0, 0);
                     ctx.drawImage(logo_image, 0, 0);
-                    sup1.move_to(index)
+                    sup1.move_to(index);
                     index++;
                     setTimeout(function() {
                         enterLoop(index % length, length);
                     }, 500)
-
                 }
             }
         }
     </script>
 
-
-
     <h1>Example with rubbing and auto-play on</h1>
     <img id="example2" src="./assets/no-image-place-holder.gif" rel:auto_play="1" width="467" height="375" rel:rubbable="1" />
     <br>
     <script type="text/javascript">
-        var sup2 = new RubbableGif({ gif: document.getElementById('example2') } );
+        var sup2 = new RubbableGif({ gif: document.getElementById('example2')});
         sup2.load();
     </script>
 

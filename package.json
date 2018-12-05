@@ -1,0 +1,27 @@
+{
+  "name": "coms-4170",
+  "version": "1.0.0",
+  "description": "This is the node module package of this project",
+  "main": "script.js",
+  "dependencies": {
+    "ccapture.js": "^1.1.0",
+    "concat-frames": "^1.0.3",
+    "gif-stream": "^1.1.0",
+    "requirejs": "^2.3.6",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhuchunlin1995/COMS-4170.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhuchunlin1995/COMS-4170/issues"
+  },
+  "homepage": "https://github.com/zhuchunlin1995/COMS-4170#readme"
+}
