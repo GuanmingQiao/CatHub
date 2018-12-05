@@ -19,8 +19,9 @@
 <body>
 <center>
     <h1>Example with controls and no auto-play</h1>
-    <img id="dataStore" src="./assets/logo.jpg" rel:animated_src="./assets/catStock.gif" rel:auto_play="0" width="467" height="375" />
-    <canvas id="myCanvas" width="467" height="375" style="border:1px solid #000000;"></canvas>
+    <img id="dataStore" src="./assets/logo.jpg" rel:animated_src="./assets/catStock.gif" rel:auto_play="0" width=auto height=auto />
+    <h1>Seperate Images on Canvas: Showing as PNGs for Display</h1>
+    <canvas id="myCanvas" width=auto height=auto style="border:1px solid #000000;"></canvas>
     <br>
     <script type="text/javascript">
         var sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
@@ -28,12 +29,15 @@
         const ctx = canvas.getContext('2d');
 
         sup1.load(function(){
+            canvas.width = sup1.get_canvas().width;
+            canvas.height = sup1.get_canvas().height;
             var grabLimit = sup1.get_length();  // Number of screenshots to take
-            var shots  = [];
-            var grabRate  = 600; // Miliseconds. 500 = half a second, this gives enterLoop 1 extra second to load
+            // Miliseconds. 500 = half a second, should gives enterLoop 100 extra milisecond to load
+            // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
+            var grabRate  = 300;
             var count     = 0;
 
-            enterLoop(0, grabLimit);
+            animate(0, grabLimit);
 
             var encoder = new GIFEncoder();
             encoder.setRepeat(0);  //0  -> loop forever, 1+ -> loop n times then stop
@@ -59,12 +63,10 @@
                     var imdata = ctx.getImageData(0,0,canvas.width,canvas.height);
                     encoder.addFrame(ctx);
                 }
-                // var img = canvas.toDataURL("image/png");
-                // shots.push(img);
             }, grabRate);
         })
 
-        function enterLoop(index, length){
+        function animate(index, length){
             logo_image = new Image();
             logo_image.src = 'assets/logo.jpg';
             logo_image.onload = function(){
@@ -77,8 +79,8 @@
                     sup1.move_to(index);
                     index++;
                     setTimeout(function() {
-                        enterLoop(index % length, length);
-                    }, 500)
+                        animate(index % length, length);
+                    }, 200)
                 }
             }
         }
@@ -94,6 +96,7 @@
 
     <br><br>
     <p>Image via <a href="http://mlkshk.com/p/IP08">mlkshk</a></p>
+    <h1>Downloadable Gif</h1>
 </center>
 
 </body>
