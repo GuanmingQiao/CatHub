@@ -40,9 +40,12 @@
         <div class = "form-group">
             <br>Preview of Image<br>
             <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+            <br>Choose Frame Rate<br>
+            Frame Rate: <input type="text" id="delay" value = "100"><br>
             <br>Choose Image Coordinates<br>
             X: <input type="text" id="image-x-location" value = "0"><br>
             Y: <input type="text" id="image-y-location" value = "0"><br>
+            <button id="refreshButton" type="button" class="btn btn-secondary">Refresh</button>
             <button id="combineButton" type="button" class="btn btn-secondary">Download!</button>
         </div>
         <div class="text-container">
@@ -52,7 +55,7 @@
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" id="uploadImageButton" class="btn btn-secondary">Upload Image</button>
             </div>
-            <div class="text-container" >
+            <div class="text-container">
                 <form>
                     <div class="form-group">
                         <label id="slogan-label">Input Slogan</label>

@@ -3,17 +3,40 @@ $(document).ready(function() {
     const ctx = canvas.getContext('2d');
     const loadImage = document.getElementById("uploadImageButton");
     const combineImage = document.getElementById("combineButton");
+    const refresh = document.getElementById("refreshButton");
     let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
     var timeouts = [];
-    let delay = 200;
+    var delay = parseInt($("#delay").val());
+    var shouldEnd = false;
 
+    // On click of load image
     loadImage.onclick = function () {
         sup1.load(function(){
-            showPreview()
+            delay = parseInt($("#delay").val())
+            setTimeout(function() {
+                showPreview();
+            }, delay)
         })
         document.getElementById("uploaded-image").src="./assets/logo.jpg";
     }
 
+    // On click of refresh, try to stop all timeout events, then start a new loop
+    refresh.onclick = function () {
+        if (canvas.width == 0 || canvas.height == 0){
+            alert("Nothing to refresh!")
+        } else {
+            sup1.load(function(){
+                shouldEnd = true;
+                delay = parseInt($("#delay").val())
+                setTimeout(function() {
+                    shouldEnd = false;
+                    showPreview();
+                }, delay)
+            });
+        }
+    }
+
+    // Click to download
     combineImage.onclick = function (){
         if (canvas.width == 0 || canvas.height == 0){
             alert("Please first upload a image")
@@ -22,6 +45,7 @@ $(document).ready(function() {
         }
     }
 
+    // Shows the combined canvas without download
     function showPreview(){
         // Set the size of the display canvas to that of original GIF
         canvas.width = sup1.get_canvas().width;
@@ -30,17 +54,18 @@ $(document).ready(function() {
 
         let grabLimit = sup1.get_length();
 
-        // clear all timeOuts
+        // Clear all timeOuts
         for (var i = 0; i < timeouts.length; i++) {
             clearTimeout(timeouts[i]);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-        //quick reset of the timer array
+        // Quick reset of the timer array
         timeouts = [];
         // Begin Animation Loop
         animate(0, grabLimit);
     }
 
+    // To download image
     function download(){
         // Number of screenshots to take == number of frames in the original GIF
         // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
@@ -79,8 +104,12 @@ $(document).ready(function() {
         }, grabRate);
     }
 
-// Function to drive the canvas display of combined images
+    // Function to drive the canvas display of combined images
     function animate(index, length){
+        if (shouldEnd){
+            return;
+        }
+        delay = parseInt($("#delay").val())
         logo_image = new Image();
         logo_image.src = document.getElementById("uploaded-image").src;
         logo_image.onload = function(){
@@ -93,16 +122,24 @@ $(document).ready(function() {
                 try
                 {
                     sup1.move_to(index);
+                    index++;
+                    recurse(index, length);
                 }
                 catch(e)
                 {
-                    console.log("sup1 Updated without quitting a method " + sup1);
+                    // Force it
+                    sup1.move_to(index);
+                    index++;
+                    recurse(index, length);
+                    console.log("forced through a gif frame change " + index);
                 }
-                index++;
-                timeouts.push( setTimeout(function() {
-                    animate(index % length, length);
-                }, delay) );
             }
         }
+    }
+
+    function recurse(index, length){
+        timeouts.push( setTimeout(function() {
+            animate(index % length, length);
+        }, delay) );
     }
 })
