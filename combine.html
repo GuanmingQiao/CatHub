@@ -1,19 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src = "./script.js"> </script>
-    <link rel="stylesheet" href="./style.css">
     <link rel = "stylesheet" href = "https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="./js/libgif.js"></script>
+    <script type="text/javascript" src="./js/rubbable.js"></script>
+    <script type="text/javascript" src="./js/GIFEncoder.js"></script>
+    <script type="text/javascript" src="./js/b64.js"></script>
+    <script type="text/javascript" src="./js/LZWEncoder.js"></script>
+    <script type="text/javascript" src="./js/NeuQuant.js"></script>
+    <script src="./js/CCapture.all.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Title</title>
 </head>
 <body>
     <div class="upper-container">
         <div class="gif-container" layout="horizontal">
             <div class="gif-preview">
-                <img src="./assets/catStock.gif">
+                <img id="dataStore" src="./assets/catStock.gif" rel:animated_src="./assets/catStock.gif" rel:auto_play="0" width=auto height=auto />
             </div>
             <div class="search-container" >
                 <form>
@@ -30,12 +37,20 @@
                 <button type="button" class="btn btn-secondary">One More!</button>
             </div>
         </div>
+        <div class = "form-group">
+            <br>Preview of Image<br>
+            <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+            <br>Choose Image Coordinates<br>
+            X: <input type="text" id="image-x-location" value = "0"><br>
+            Y: <input type="text" id="image-y-location" value = "0"><br>
+            <button id="combineButton" type="button" class="btn btn-secondary">Download!</button>
+        </div>
         <div class="text-container">
-            <div class="gif-preview">
-                <img src="./assets/no-image-place-holder.gif">
+            <div class="image-upload">
+                <img id="uploaded-image" src="./assets/no-image-place-holder.gif">
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">UpLoad Image</button>
+                <button type="button" id="uploadImageButton" class="btn btn-secondary">Upload Image</button>
             </div>
             <div class="text-container" >
                 <form>
@@ -48,5 +63,7 @@
             </div>
         </div>
     </div>
+    <script src = "./script.js"> </script>
+    <link rel="stylesheet" href="./style.css">
 </body>
 </html>
