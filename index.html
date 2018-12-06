@@ -44,8 +44,10 @@
                 }
             }
     });
-    
-
+    $(".cat_profile").click(function() {
+        localStorage.setItem('cat_type', $(this).attr("alt"));
+        window.location.href = 'combine.html';
+    })
 </script>
 </body>
 </html>
