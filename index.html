@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>CatHub</title>
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/jQueryRotate.js"></script>
 </head>
 <body>
 
@@ -27,5 +29,25 @@
         </section>
     </div>
 </div>
+<script>
+    $(".cat_profile").rotate({ bind: {
+                mouseover : function() {
+                    $(this).rotate({
+                        // angle: -30,
+                        animateTo: 15
+                    })
+                },
+                mouseout : function() {
+                    $(this).rotate({
+                        animateTo:0
+                    })
+                }
+            }
+    });
+    $(".cat_profile").click(function() {
+        localStorage.setItem('cat_type', $(this).attr("alt"));
+        window.location.href = 'combine.html';
+    })
+</script>
 </body>
 </html>
