@@ -1,56 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src = "./script.js"> </script>
-    <link rel="stylesheet" href="./style.css">
-    <link rel = "stylesheet" href = "https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="./js/libgif.js"></script>
+    <script type="text/javascript" src="./js/rubbable.js"></script>
+    <script type="text/javascript" src="./js/GIFEncoder.js"></script>
+    <script type="text/javascript" src="./js/b64.js"></script>
+    <script type="text/javascript" src="./js/LZWEncoder.js"></script>
+    <script type="text/javascript" src="./js/NeuQuant.js"></script>
+    <script src="./js/CCapture.all.min.js"></script>
     <script src="./js/gifshot.js"></script>
+    <!--bootstrap script-->
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
 
 
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Combine</title>
 </head>
 <body>
-    <div class="upper-container">
-        <div class="gif-container" layout="horizontal">
-            <div class="gif-preview">
-                <img src="./assets/catStock.gif">
-            </div>
-            <div class="search-container" >
-                <form>
-                    <div class="form-group">
-                        <label id="search-cat-label">Search Cat</label>
-                        <input type="email" class="form-control" id="label-search" placeholder="Selected Label">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3" id="gif-preview" style="margin: 30px">
+                <div class="row">
+                    <div class="col" align="center">
+                        <img id="dataStore" style="text-align: center" src="./assets/catStock.gif"/>
                     </div>
-                </form>
+                </div>
+                <div class="row" style="margin-top: 60px">
+                    <button type="button" class="btn btn-primary btn-block">Lucky!</button>
+                    <button type="button" class="btn btn-secondary btn-block">Go Back</button>
+                </div>
             </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Random</button>
-                <button type="button" class="btn btn-secondary">Go Back</button>
-                <button type="button" class="btn btn-secondary">One More!</button>
+            <div class="col-sm">
+
             </div>
-        </div>
-        <div class="text-container">
-            <div class="gif-preview">
-                <img src="./assets/no-image-place-holder.gif">
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">UpLoad Image</button>
-            </div>
-            <div class="text-container" >
-                <form>
-                    <div class="form-group">
-                        <label id="slogan-label">Input Slogan</label>
-                        <input type="email" class="form-control" id="input-slogan" placeholder="Your Slogan">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+            <div class="col-sm">
+
             </div>
         </div>
     </div>
-    <script src="./js/combine.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="upper-container">
+    <div class="gif-container" layout="horizontal">
+        <div class="gif-preview">
+            <!--<img id="dataStore" src="./assets/catStock.gif" rel:animated_src="./assets/catStock.gif" rel:auto_play="0"-->
+                 <!--width=auto height=auto/>-->
+        </div>
+        <div class="search-container">
+            <form>
+                <div class="form-group">
+                    <label id="search-cat-label">Search Cat</label>
+                    <input type="email" class="form-control" id="label-search" placeholder="Selected Label">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">Random</button>
+            <button type="button" class="btn btn-secondary">Go Back</button>
+            <button type="button" class="btn btn-secondary">One More!</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <br>Preview of Image<br>
+        <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+        <br>Choose Frame Rate<br>
+        Frame Rate: <input type="text" id="delay" value="100"><br>
+        <br>Choose Image Coordinates<br>
+        X: <input type="text" id="image-x-location" value="0"><br>
+        Y: <input type="text" id="image-y-location" value="0"><br>
+        <button id="refreshButton" type="button" class="btn btn-secondary">Refresh</button>
+        <button id="combineButton" type="button" class="btn btn-secondary">Download!</button>
+    </div>
+    <div class="text-container">
+        <div class="image-upload">
+            <img id="uploaded-image" src="./assets/no-image-place-holder.gif">
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" id="uploadImageButton" class="btn btn-secondary">Upload Image</button>
+        </div>
+        <div class="text-container">
+            <form>
+                <div class="form-group">
+                    <label id="slogan-label">Input Slogan</label>
+                    <input type="text" class="form-control" id="input-slogan" placeholder="Your Slogan">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="./script.js"></script>
+<!--<link rel="stylesheet" href="./style.css">-->
+<script>
+    // This is how you get the cat type from index html
+    console.log(localStorage.getItem('cat_type'));
+</script>
 </body>
 </html>

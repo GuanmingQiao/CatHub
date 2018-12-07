@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="./js/libgif.js"></script>
+    <script type="text/javascript" src="./js/rubbable.js"></script>
+    <script type="text/javascript" src="./js/GIFEncoder.js"></script>
+    <script type="text/javascript" src="./js/b64.js"></script>
+    <script type="text/javascript" src="./js/LZWEncoder.js"></script>
+    <script type="text/javascript" src="./js/NeuQuant.js"></script>
+    <script src="./js/CCapture.all.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>
+        Example gif
+    </title>
+</head>
+
+<body>
+<center>
+    <h1>IMPORTANT CAVEAT: The delay of taking canvas screenshots are different for Chrome and Safari</h1>
+    <p> For example, for a GIF with 200ms delay between frames, a capture rate of 300ms would work for Chrome, which takes one shot every frame.</p>
+    <br>
+    <p>
+        But that capture rate is too short for Safari. Safari ends up catching two shots for each of first two frames.
+    </p>
+    <br>
+    <p>
+        This is because Safari takes way longer than Chrome to load GIFs.
+
+    </p>
+    <h1>Example with controls and no auto-play</h1>
+    <img id="dataStore" src="./assets/logo.jpg" rel:animated_src="./assets/catStock.gif" rel:auto_play="0" width=auto height=auto />
+    <h1>Seperate Images on Canvas: Showing as PNGs for Display</h1>
+    <canvas id="myCanvas" width=auto height=auto style="border:1px solid #000000;"></canvas>
+    <br>
+    <script type="text/javascript">
+        var sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext('2d');
+
+        sup1.load(function(){
+            // Set the size of the display canvas to that of original GIF
+            canvas.width = sup1.get_canvas().width;
+            canvas.height = sup1.get_canvas().height;
+
+            // Number of screenshots to take == number of frames in the original GIF
+            var grabLimit = sup1.get_length();
+            // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
+            // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
+            var grabRate  = 250;
+            var count     = 0;
+
+            // Begin Animation Loop
+            animate(0, grabLimit);
+
+            // Start GIFEncoder to Capture Individual PNGs
+            var encoder = new GIFEncoder();
+            //0  -> loop forever, 1+ -> loop n times then stop
+            encoder.setRepeat(0);
+            //go to next frame every n milliseconds
+            encoder.setDelay(grabRate);
+            encoder.start();
+
+            function showResults() {
+                console.log('Finishing');
+                encoder.finish();
+                var binary_gif = encoder.stream().getData();
+                var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+                var p = document.createElement('p'); // is a node
+                p.innerHTML = '<img src="' + data_url + '"/>\n';
+                document.getElementsByTagName('body')[0].appendChild(p);
+            }
+
+            // Implementation of Image Grabbing
+            var grabber = setInterval(function(){
+                count++;
+                if (count>grabLimit) {
+                    clearInterval(grabber);
+                    showResults();
+                } else {
+                    encoder.addFrame(ctx);
+                }
+            }, grabRate);
+        })
+
+        // Function to drive the canvas display of combined images
+        function animate(index, length){
+            logo_image = new Image();
+            logo_image.src = 'assets/logo.jpg';
+            logo_image.onload = function(){
+                const frame_image_src = sup1.get_canvas().toDataURL();
+                frame_image = new Image();
+                frame_image.src = frame_image_src;
+                frame_image.onload = function(){
+                    ctx.drawImage(frame_image, 0, 0);
+                    ctx.drawImage(logo_image, 0, 0);
+                    sup1.move_to(index);
+                    index++;
+                    setTimeout(function() {
+                        animate(index % length, length);
+                    }, 200)
+                }
+            }
+        }
+    </script>
+
+    <h1>Example with rubbing and auto-play on</h1>
+    <img id="example2" src="./assets/no-image-place-holder.gif" rel:auto_play="1" width="467" height="375" rel:rubbable="1" />
+    <br>
+    <script type="text/javascript">
+        var sup2 = new RubbableGif({ gif: document.getElementById('example2')});
+        sup2.load();
+    </script>
+
+    <br><br>
+    <p>Image via <a href="http://mlkshk.com/p/IP08">mlkshk</a></p>
+    <h1>Downloadable Gif</h1>
+</center>
+
+</body>
+
+</html>
