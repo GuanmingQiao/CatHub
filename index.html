@@ -12,7 +12,7 @@
 <div class="container">
     <div class="header">
         <!--<h1>CatHub</h1>-->
-        <img src="assets/cathub.png" alt="cathub">>
+        <img src="assets/cathub.png" alt="cathub">
     </div>
     <div class="profile_container">
         <section id="cat_profiles">
@@ -24,27 +24,31 @@
             <img class='cat_profile' src="assets/profiles/cornish-rex.png" alt="cornish-rex">
             <img class='cat_profile' src="assets/profiles/egyptian-mau.png" alt="egyptian-mau">
             <img class='cat_profile' src="assets/profiles/exotic-shorthair.png" alt="exotic-shorthair">
-            <img class='cat_profile' src="assets/profiles/havana.png" alt="havana">
+            <img class='cat_profile' src="assets/profiles/havana.png" alt="havana-cat">
             <img class='cat_profile' src="assets/profiles/cymric.png" alt="cymric">
         </section>
     </div>
 </div>
 <script>
-    $(".cat_profile").rotate({ bind: {
-                mouseover : function() {
-                    $(this).rotate({
-                        // angle: -30,
-                        animateTo: 15
-                    })
-                },
-                mouseout : function() {
-                    $(this).rotate({
-                        animateTo:0
-                    })
-                }
-            }
-    });
-    $(".cat_profile").click(function() {
+    var swing = function ( element, deg ){
+        deg *= -1;
+        element.rotate({animateTo: 15, callback: swing( element, deg )});
+    };
+    var swingInterval = null;
+    $(".cat_profile").mouseover( function(){
+        var swing_deg = 15;
+        var self = $(this);
+        swingInterval = setInterval(function(){
+            swing_deg *= -1;
+            self.rotate({animateTo: swing_deg});
+        },600);
+
+    }).mouseout( function() {
+        clearInterval( swingInterval );
+        $(this).rotate({
+            animateTo: 0
+        });
+    }).click(function() {
         localStorage.setItem('cat_type', $(this).attr("alt"));
         window.location.href = 'combine.html';
     })
