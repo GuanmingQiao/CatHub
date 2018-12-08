@@ -3,6 +3,9 @@
 
 
 var apikey = 'dc6zaTOxFJmzC';
+var list = []
+var cur = -1
+var imagediv = $("#IMAGEDIV")
 
 $(document).ready(function() {
   
@@ -47,9 +50,31 @@ $(document).ready(function() {
       var gifs = JSON.parse(data);
       var rand = Math.floor(Math.random() * gifs.data.length);
       var gif = gifs.data[rand].images.fixed_width.url;
-      $("#IMAGEDIV").html("<img src='" + gif + "'>");
+      imagediv.html("<img src='" + gif + "'>");
+      list.push(gif);
+      cur = cur + 1;
       console.log(gifs.data);
     });
+  }
+
+  function previous(){
+    if (cur == 0){
+      alert("No more previous gif.");
+    };
+    else{
+      cur = cur - 1;
+      imagediv.html("<img src='" + list[cur] + "'>");
+    }
+  }
+
+  function next(){
+    if (cur == list.length-1){
+      alert("No more next gif.");
+    };
+    else{
+      cur = cur + 1;
+      imagediv.html("<img src='" + list[cur] + "'>");
+    }
   }
 
   getGif("LOADINGQUERY");
