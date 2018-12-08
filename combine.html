@@ -24,13 +24,12 @@
     <!--customize css-->
     <link rel="stylesheet" href="./css/combine.css"/>
 
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Combine</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="combiner">
         <div class="row">
             <div class="col-sm-3" id="gif-preview" style="margin-top: 150px; margin-left: 60px">
                 <div class="row">
@@ -40,22 +39,31 @@
                 </div>
                 <div class="row" style="margin-top: 30px">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Cat's Categories" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="text" class="form-control" placeholder="Cat's Categories">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                            <button class="btn btn-outline-secondary" type="button">Search</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary">Go Back</button>
+                    <button type="button" class="btn btn-secondary">Previous</button>
                     <button type="button" class="btn btn-secondary">Next</button>
                     <button type="button" class="btn btn-primary btn-block">Lucky!</button>
-
                 </div>
             </div>
-            <div class="col-sm-3" style="margin-top: 150px">
+            <div class="col-sm-3" style="margin-top: 350px; margin-left: 60px; vertical-align: bottom">
                 <div class="row">
                     <div class="col" align="center">
                         <img src="./assets/logo.jpg"/>
                     </div>
+                </div>
+                <div class="row" id="memeSection">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Input Your meme">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Submit</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block">Upload Slogan</button>
+
                 </div>
                 <div class="row">
 
