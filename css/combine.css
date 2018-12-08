@@ -1,0 +1,19 @@
+.btn-secondary {
+    width: 210px;
+    margin-bottom: 10px;
+    background-color: #da318fd6
+}
+.btn-primary {
+    margin-bottom: 20px;
+}
+
+#combiner {
+    background-image: url("../assets/bkgd.jpg")
+}
+
+#memeSection {
+    position: absolute;
+    bottom: 49px;
+    left: 17px;
+    width: 398px;
+}
