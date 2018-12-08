@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 
+    <!--customize css-->
+    <link rel="stylesheet" href="./css/combine.css"/>
+
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
@@ -29,21 +32,37 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3" id="gif-preview" style="margin: 30px">
+            <div class="col-sm-3" id="gif-preview" style="margin-top: 150px; margin-left: 60px">
                 <div class="row">
                     <div class="col" align="center">
                         <img id="dataStore" style="text-align: center" src="./assets/catStock.gif"/>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 60px">
+                <div class="row" style="margin-top: 30px">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Cat's Categories" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary">Go Back</button>
+                    <button type="button" class="btn btn-secondary">Next</button>
                     <button type="button" class="btn btn-primary btn-block">Lucky!</button>
-                    <button type="button" class="btn btn-secondary btn-block">Go Back</button>
+
                 </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3" style="margin-top: 150px">
+                <div class="row">
+                    <div class="col" align="center">
+                        <img src="./assets/logo.jpg"/>
+                    </div>
+                </div>
+                <div class="row">
 
+                </div>
+                
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
 
             </div>
         </div>
@@ -56,7 +75,9 @@
 
 
 
-
+<div>
+    ==========================================================================================================================================================================================
+</div>
 
 
 
@@ -65,15 +86,6 @@
         <div class="gif-preview">
             <!--<img id="dataStore" src="./assets/catStock.gif" rel:animated_src="./assets/catStock.gif" rel:auto_play="0"-->
                  <!--width=auto height=auto/>-->
-        </div>
-        <div class="search-container">
-            <form>
-                <div class="form-group">
-                    <label id="search-cat-label">Search Cat</label>
-                    <input type="email" class="form-control" id="label-search" placeholder="Selected Label">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary">Random</button>

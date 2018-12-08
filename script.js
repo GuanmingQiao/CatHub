@@ -12,7 +12,7 @@ $(document).ready(function() {
     // On click of load image
     loadImage.onclick = function () {
         sup1.load(function(){
-            delay = parseInt($("#delay").val())
+            delay = parseInt($("#delay").val())./
             setTimeout(function() {
                 showPreview();
             }, delay)
