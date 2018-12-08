@@ -4,6 +4,7 @@ $(document).ready(function() {
     const loadImage = document.getElementById("uploadImageButton");
     const combineImage = document.getElementById("combineButton");
     const refresh = document.getElementById("refreshButton");
+    const oneMore = document.getElementById("one-more-button");
     let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
     var timeouts = [];
     var delay = parseInt($("#delay").val());
@@ -18,6 +19,22 @@ $(document).ready(function() {
             }, delay)
         })
         document.getElementById("uploaded-image").src="./assets/logo.jpg";
+    }
+
+    // On clicking one more
+    oneMore.onclick = function (){
+        if (canvas.width == 0 || canvas.height == 0){
+            document.getElementById('dataStore').src = "./assets/no-image-place-holder.gif";
+            sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
+        } else {
+            sup1.load_url("./assets/no-image-place-holder.gif",
+            function(){
+                delay = parseInt($("#delay").val())
+                setTimeout(function() {
+                    showPreview();
+                }, delay)
+            });
+        }
     }
 
     // On click of refresh, try to stop all timeout events, then start a new loop
@@ -70,7 +87,7 @@ $(document).ready(function() {
         // Number of screenshots to take == number of frames in the original GIF
         // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
         // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
-        var grabRate  = delay + 50;
+        var grabRate  = delay;
         var count     = 0;
         let grabLimit = sup1.get_length();
 
