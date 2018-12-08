@@ -20,14 +20,14 @@
         <img src="assets/cathub.png" alt="cathub">
     </div>
 
-    <div class="btn-group-toggle cat-btn-group" data-toggle="buttons">
-        <label class="btn btn-light cat-btn active">
+    <div class="btn-group-toggle cat-btn-group " data-toggle="buttons" data-ride="carousel" >
+        <label data-target="#carouselExampleIndicators" data-slide-to="0" class="btn btn-light cat-btn active">
             <input type="radio" name="options" id="option1" autocomplete="off" checked> Breed
         </label>
-        <label class="btn btn-light cat-btn ">
+        <label data-target="#carouselExampleIndicators" data-slide-to="1" class="btn btn-light cat-btn ">
             <input type="radio" name="options" id="option2" autocomplete="off"> Color
         </label>
-        <label class="btn btn-light cat-btn ">
+        <label data-target="#carouselExampleIndicators" data-slide-to="2" class="btn btn-light cat-btn ">
             <input type="radio" name="options" id="option3" autocomplete="off"> Mood
         </label>
     </div>
@@ -103,7 +103,10 @@
 <script>
     var swingInterval = null;
     var swing_deg = 15;
-    $("#carouselExampleIndicators").carousel("pause");
+    $("#carouselExampleIndicators").on('slide.bs.carousel', function (e) {
+        var idx = $(e.relatedTarget).index();
+        $('[data-slide-to='+idx+']').button('toggle');
+    });
     $(".cat_profile").mouseover( function(){
         var self = $(this);
         self.rotate({animateTo: swing_deg});
