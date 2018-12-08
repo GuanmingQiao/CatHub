@@ -15,6 +15,9 @@ h1 {
     text-shadow: 2px 2px #666;
 }
 
+.header {
+    margin-bottom: 60px;
+}
 
 .container {
     display: inline;
@@ -23,14 +26,37 @@ h1 {
     margin: auto;
 }
 
+.cat-btn-group {
+    margin-bottom: 20px;
+}
+
+.cat-btn {
+    margin-right: 20px;
+    border: 5px solid #fff;
+    color: #fff;
+    background-color: #ffcc66;
+}
+
+.cat-carousel-slider {
+    border: 5px solid #fff;
+    border-radius: 25px;
+    background-color: rgba(20, 20, 20, 0.1);
+    -moz-box-shadow:    inset 0 0 20px #000000;
+    -webkit-box-shadow: inset 0 0 20px #000000;
+    box-shadow:         inset 0 0 20px #000000;
+}
+
 .profile_container {
     margin: auto;
     padding: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
     text-align: center;
-    width: 60%;
+    width: 80%;
+
 }
 
-#cat_profiles {
+#cat_profiles, #cat_colors, #cat_moods {
     /* Prevent vertical gaps */
     line-height: 0;
 
@@ -44,37 +70,43 @@ h1 {
 
 .cat_profile {
     width: 100px;
+    padding: 8px;
+}
+.carousel {
+    margin: auto;
+    padding: auto;
+    width: 60%;
 }
 
-#cat_profiles img {
+#cat_profiles img, #cat_colors img, #cat_moods img {
     /* Just in case there are inline attributes */
     width: 100% !important;
-    height: auto !important;
+    height: auto; !important;
 }
 
-@media (max-width: 1200px) {
-    #cat_profiles {
+@media (max-width: 1000px) {
+    #cat_profiles, #cat_colors, #cat_moods {
         -moz-column-count:    4;
         -webkit-column-count: 4;
         column-count:         4;
     }
 }
-@media (max-width: 1000px) {
-    #cat_profiles {
+@media (max-width: 800px) {
+    #cat_profiles, #cat_colors, #cat_moods {
         -moz-column-count:    3;
         -webkit-column-count: 3;
         column-count:         3;
     }
 }
-@media (max-width: 800px) {
-    #cat_profiles {
+@media (max-width: 500px) {
+    #cat_profiles, #cat_colors, #cat_moods {
         -moz-column-count:    2;
         -webkit-column-count: 2;
         column-count:         2;
     }
 }
 @media (max-width: 400px) {
-    #cat_profiles {
+    #cat_profiles, #cat_colors, #cat_moods {
         -moz-column-count:    1;
         -webkit-column-count: 1;
         column-count:         1;
