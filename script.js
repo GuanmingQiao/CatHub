@@ -1,33 +1,56 @@
 $(document).ready(function() {
     const canvas = document.getElementById("myCanvas");
+    const memeCanvas = document.getElementById("memeCanvas");
     const ctx = canvas.getContext('2d');
     const loadImage = document.getElementById("uploadImageButton");
     const combineImage = document.getElementById("combineButton");
     const refresh = document.getElementById("refreshButton");
     const oneMore = document.getElementById("one-more-button");
+    const memeInput = $("#memeInput").val();
+    const submitMeme = document.getElementById("submitMeme");
+    const combineButton = document.getElementById("combineThem");
     let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
     var timeouts = [];
     var delay = parseInt($("#delay").val());
     var shouldEnd = false;
+    let currentImage = new Image();
+    currentImage.src = "./assets/logo.jpg";
 
-    // On click of load image
-    loadImage.onclick = function () {
+    memeCanvas.width = document.getElementById('dataStore').width;
+    memeCanvas.height = document.getElementById('dataStore').height;
+    // On click of combine button
+    combineButton.onclick = function () {
         sup1.load(function(){
-            delay = parseInt($("#delay").val())./
+            delay = parseInt($("#delay").val())
             setTimeout(function() {
                 showPreview();
             }, delay)
         })
-        document.getElementById("uploaded-image").src="./assets/logo.jpg";
     }
+
+    // On click of upload image
+    loadImage.onclick = function () {
+        memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+        memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
+        currentImage.src = memeCanvas.toDataURL();
+    }
+
+    // On click of submitting meme
+    submitMeme.onclick = function () {
+        if (memeInput == null){
+            alert("Please input a meme text");
+        }
+    }
+
+
 
     // On clicking one more
     oneMore.onclick = function (){
         if (canvas.width == 0 || canvas.height == 0){
-            document.getElementById('dataStore').src = "./assets/no-image-place-holder.gif";
+            document.getElementById('dataStore').src = "./assets/image_needed_LHB.png";
             sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
         } else {
-            sup1.load_url("./assets/no-image-place-holder.gif",
+            sup1.load_url("./assets/image_needed_LHB.png",
             function(){
                 delay = parseInt($("#delay").val())
                 setTimeout(function() {
@@ -128,7 +151,7 @@ $(document).ready(function() {
         }
         delay = parseInt($("#delay").val())
         logo_image = new Image();
-        logo_image.src = document.getElementById("uploaded-image").src;
+        logo_image.src = currentImage.src;
         logo_image.onload = function(){
             const frame_image_src = sup1.get_canvas().toDataURL();
             frame_image = new Image();
