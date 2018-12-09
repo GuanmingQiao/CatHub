@@ -24,13 +24,17 @@
     <!--customize css-->
     <link rel="stylesheet" href="./css/combine.css"/>
 
+    <!--upload script-->
+    <script src="js/upload.js"></script>
+
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Combine</title>
 </head>
 <body>
     <div class="container-fluid" id="combiner" style="padding-bottom: 150px">
-        <div class="row" >
+        <div class="row">
+            <div class="col-sm-3"></div>
             <div class="col-sm-3" id="gif-preview" style="margin-top: 150px; margin-left: 60px">
                 <div class="row">
                     <div class="col" align="center">
@@ -46,15 +50,13 @@
                     </div>
                     <button type="button" class="btn btn-secondary">Previous</button>
                     <button type="button" class="btn btn-secondary">Next</button>
-                    <button type="button" class="btn btn-primary btn-block">Lucky!</button>
+                    <button type="button" class="btn btn-light btn-block">Lucky!</button>
                 </div>
-            </div>
-            <div class="col-sm-1" style="margin-top: 150px; margin-left: 50px">
-                <button id = "combineThem" type="button" class="btn btn-primary">Combine Them!</button>
             </div>
             <div class="col-sm-3" style="margin-top: 150px; margin-left: 50px; vertical-align: bottom">
                 <div class="row">
                     <div class="col" align="center">
+                        <img id = "uploadedImg"/>
                         <canvas id="memeCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
                     </div>
                 </div>
@@ -65,16 +67,10 @@
                             <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
                         </div>
                     </div>
-                    <button id = "uploadImageButton" type="button" class="btn btn-primary btn-block">Upload Image</button>
-                </div>
-                <div class="row">
-
-                </div>
-                
+                    <input class="btn btn-light btn-block" type="file" onchange="readURL(this)"/>
+                </input>
             </div>
-            <div class="col-sm-3">
-
-            </div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 
