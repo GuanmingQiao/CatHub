@@ -1,3 +1,31 @@
+
+.header {
+    align-items: center;
+    padding: auto;
+}
+#cathub-logo {
+    display: block;
+    margin: auto;
+}
+
+.gif-nav {
+    height: auto;
+    background: transparent;
+    border: transparent;
+}
+
+.nav-icon {
+    width: 100px;
+}
+
+.cat-gif-container {
+
+}
+
+.cat-gif {
+    width: 300px;
+}
+
 .btn-secondary {
     width: 210px;
     margin-bottom: 10px;

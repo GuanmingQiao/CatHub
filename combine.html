@@ -31,13 +31,31 @@
 <body>
 <script src="./script.js"></script>
     <div class="container-fluid" id="combiner" style="padding-bottom: 150px">
+        <div class="header">
+            <img id="cathub-logo" src="assets/cathub.png" alt="cathub">
+        </div>
+
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-3" id="gif-preview" style="margin-top: 150px; margin-left: 60px">
                 <div class="row">
+                    <a class="gif-nav" href="#" aria-label="Previous">
+                        <span aria-hidden="true">
+                            <img class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
+                        </span>
+                        <span class="sr-only">Previous</span>
+                    </a>
                     <div class="col" align="center">
-                        <img id="dataStore" style="text-align: center" src="./assets/catStock.gif"/>
+                        <div class="cat-gif-container">
+                            <img id="cat-gif" class="cat-gif" src="./assets/catStock.gif">
+                        </div>
                     </div>
+                    <a class="gif-nav" href="#" aria-label="Next">
+                        <span aria-hidden="true">
+                            <img class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
+                        </span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
                 <div class="row" style="margin-top: 30px">
                     <div class="input-group mb-3">
@@ -46,8 +64,6 @@
                             <button class="btn btn-outline-secondary" type="button">Search</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary">Previous</button>
-                    <button type="button" class="btn btn-secondary">Next</button>
                     <button type="button" class="btn btn-light btn-block">Lucky!</button>
                 </div>
             </div>
