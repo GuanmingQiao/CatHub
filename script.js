@@ -19,10 +19,10 @@ $(document).ready(function() {
     memeCanvas.height = document.getElementById('dataStore').height;
     // For giphy api
     // Change the buttonname, inputquery, imagediv, loadingquery to use
-    var apikey = 'dc6zaTOxFJmzC';
-    var list = []
-    var cur = -1
-    var imagediv = $("#IMAGEDIV")
+    // var apikey = 'dc6zaTOxFJmzC';
+    // var list = []
+    // var cur = -1
+    // var imagediv = $("#IMAGEDIV")
 
     // On click of combine button
     combineButton.onclick = function () {
@@ -197,70 +197,70 @@ $(document).ready(function() {
 
 
 
-    function encodeQueryData(data)
-    {
-        var ret = [];
-        for (var d in data)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-        return ret.join("&");
-    }
+    // function encodeQueryData(data)
+    // {
+    //     var ret = [];
+    //     for (var d in data)
+    //         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    //     return ret.join("&");
+    // }
 
-    function httpGetAsync(theUrl, callback)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                callback(xmlHttp.responseText);
-        }
-        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-        xmlHttp.send(null);
-    }
+    // function httpGetAsync(theUrl, callback)
+    // {
+    //     var xmlHttp = new XMLHttpRequest();
+    //     xmlHttp.onreadystatechange = function() { 
+    //         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    //             callback(xmlHttp.responseText);
+    //     }
+    //     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    //     xmlHttp.send(null);
+    // }
 
-    /*
-    * The following functions are what do the work for retrieving and displaying gifs
-    * that we search for.
-    */
+    // /*
+    // * The following functions are what do the work for retrieving and displaying gifs
+    // * that we search for.
+    // */
 
-    function getGif(query) {
-        console.log(query);
-        query = query.replace(' ', '+');
-        var params = { 'api_key': apikey, 'q': query};
-        params = encodeQueryData(params);
+    // function getGif(query) {
+    //     console.log(query);
+    //     query = query.replace(' ', '+');
+    //     var params = { 'api_key': apikey, 'q': query};
+    //     params = encodeQueryData(params);
 
-        // api from https://github.com/Giphy/GiphyAPI#search-endpoint 
+    //     // api from https://github.com/Giphy/GiphyAPI#search-endpoint 
 
-        httpGetAsync('http://api.giphy.com/v1/gifs/search?gi' + params, function(data) {
-            var gifs = JSON.parse(data);
-            var rand = Math.floor(Math.random() * gifs.data.length);
-            var gif = gifs.data[rand].images.fixed_width.url;
-            imagediv.html("<img src='" + gif + "'>");
-            list.push(gif);
-            cur = cur + 1;
-            console.log(gifs.data);
-        });
-    }
+    //     httpGetAsync('http://api.giphy.com/v1/gifs/search?gi' + params, function(data) {
+    //         var gifs = JSON.parse(data);
+    //         var rand = Math.floor(Math.random() * gifs.data.length);
+    //         var gif = gifs.data[rand].images.fixed_width.url;
+    //         imagediv.html("<img src='" + gif + "'>");
+    //         list.push(gif);
+    //         cur = cur + 1;
+    //         console.log(gifs.data);
+    //     });
+    // }
 
-    function previous(){
-        if (cur == 0){
-            alert("No more previous gif.");
-        } else{
-            cur = cur - 1;
-            imagediv.html("<img src='" + list[cur] + "'>");
-        }
-    }
+    // function previous(){
+    //     if (cur == 0){
+    //         alert("No more previous gif.");
+    //     } else{
+    //         cur = cur - 1;
+    //         imagediv.html("<img src='" + list[cur] + "'>");
+    //     }
+    // }
 
-    function next(){
-        if (cur == list.length-1){
-            alert("No more next gif.");
-        } else {
-            cur = cur + 1;
-            imagediv.html("<img src='" + list[cur] + "'>");
-        }
-    }
+    // function next(){
+    //     if (cur == list.length-1){
+    //         alert("No more next gif.");
+    //     } else {
+    //         cur = cur + 1;
+    //         imagediv.html("<img src='" + list[cur] + "'>");
+    //     }
+    // }
 
-    getGif("LOADINGQUERY");
-    $("#BUTTONNAME").on("click", function() {
-        var query = $("#INPUTQUERY").val();
-        getGif(query);
-    });
+    // getGif("LOADINGQUERY");
+    // $("#BUTTONNAME").on("click", function() {
+    //     var query = $("#INPUTQUERY").val();
+    //     getGif(query);
+    // });
 })
