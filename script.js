@@ -6,7 +6,6 @@ $(document).ready(function() {
     const combineImage = document.getElementById("combineButton");
     const refresh = document.getElementById("refreshButton");
     const oneMore = document.getElementById("one-more-button");
-    const memeInput = $("#memeInput").val();
     const submitMeme = document.getElementById("submitMeme");
     const combineButton = document.getElementById("combineThem");
     let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
@@ -18,8 +17,6 @@ $(document).ready(function() {
 
     memeCanvas.width = document.getElementById('dataStore').width;
     memeCanvas.height = document.getElementById('dataStore').height;
-    // On click of combine button
-    combineButton.onclick = function () {
     // For giphy api
     // Change the buttonname, inputquery, imagediv, loadingquery to use
     var apikey = 'dc6zaTOxFJmzC';
@@ -27,9 +24,8 @@ $(document).ready(function() {
     var cur = -1
     var imagediv = $("#IMAGEDIV")
 
-
-    // On click of load image
-    loadImage.onclick = function () {
+    // On click of combine button
+    combineButton.onclick = function () {
         sup1.load(function(){
             delay = parseInt($("#delay").val())
             setTimeout(function() {
@@ -40,6 +36,8 @@ $(document).ready(function() {
 
     // On click of upload image
     loadImage.onclick = function () {
+        //TODO: OPEN FILE SYSTEM AND CHANGE CURRENTIMAGE TO THE UPLOADED IMAGE
+        currentImage.src = "./assets/logo.jpg"
         memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
         memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
         currentImage.src = memeCanvas.toDataURL();
@@ -47,20 +45,23 @@ $(document).ready(function() {
 
     // On click of submitting meme
     submitMeme.onclick = function () {
-        if (memeInput == null){
+        let memeInput = $("#memeInput").val();
+        if (memeInput == null || memeInput == ""){
             alert("Please input a meme text");
         }
+        memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+        memeCanvas.getContext('2d').font = '48px serif';
+        memeCanvas.getContext('2d').fillText(memeInput, 10, 50);
+        currentImage.src = memeCanvas.toDataURL();
     }
-
-
 
     // On clicking one more
     oneMore.onclick = function (){
         if (canvas.width == 0 || canvas.height == 0){
-            document.getElementById('dataStore').src = "./assets/image_needed_LHB.png";
+            document.getElementById('dataStore').src = "./assets/logo.jpg";
             sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
         } else {
-            sup1.load_url("./assets/image_needed_LHB.png",
+            sup1.load_url("./assets/logo.jpg",
             function(){
                 delay = parseInt($("#delay").val())
                 setTimeout(function() {
@@ -87,7 +88,7 @@ $(document).ready(function() {
     }
 
     // Click to download
-    combineImage.onclick = function (){
+    combineImage.onclick = function () {
         if (canvas.width == 0 || canvas.height == 0){
             alert("Please first upload a image")
         } else {
@@ -96,7 +97,7 @@ $(document).ready(function() {
     }
 
     // Shows the combined canvas without download
-    function showPreview(){
+    function showPreview() {
         // Set the size of the display canvas to that of original GIF
         canvas.width = sup1.get_canvas().width;
         canvas.height = sup1.get_canvas().height;
@@ -116,7 +117,7 @@ $(document).ready(function() {
     }
 
     // To download image
-    function download(){
+    function download() {
         // Number of screenshots to take == number of frames in the original GIF
         // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
         // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
@@ -155,7 +156,7 @@ $(document).ready(function() {
     }
 
     // Function to drive the canvas display of combined images
-    function animate(index, length){
+    function animate(index, length) {
         if (shouldEnd){
             return;
         }
@@ -242,8 +243,7 @@ $(document).ready(function() {
     function previous(){
         if (cur == 0){
             alert("No more previous gif.");
-        };
-        else{
+        } else{
             cur = cur - 1;
             imagediv.html("<img src='" + list[cur] + "'>");
         }
@@ -252,8 +252,7 @@ $(document).ready(function() {
     function next(){
         if (cur == list.length-1){
             alert("No more next gif.");
-        };
-        else{
+        } else {
             cur = cur + 1;
             imagediv.html("<img src='" + list[cur] + "'>");
         }
