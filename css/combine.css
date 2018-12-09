@@ -19,7 +19,13 @@
 }
 
 .cat-gif-container {
-
+    border: 5px solid white;
+    border-radius: 25px;
+    background-color: rgba(20, 20, 20, 0.1);
+    -moz-box-shadow:    inset 0 0 20px #000000;
+    -webkit-box-shadow: inset 0 0 20px #000000;
+    box-shadow:         inset 0 0 20px #000000;
+    padding: 5px;
 }
 
 .cat-gif {
