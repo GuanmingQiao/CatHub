@@ -9,12 +9,14 @@
 }
 
 .gif-nav {
-    height: auto;
+    display: block;
     background: transparent;
     border: transparent;
+    margin:auto;
 }
 
 .nav-icon {
+    align-items: center;
     width: 100px;
 }
 
