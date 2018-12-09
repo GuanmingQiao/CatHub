@@ -31,7 +31,7 @@
 }
 
 .cat-gif {
-    width: 300px;
+    width: 90%;
 }
 
 .btn-secondary {
@@ -40,6 +40,10 @@
     background-color: #da318fd6
 }
 
+#combineButton {
+    display: block;
+    margin: auto;
+}
 
 #combiner {
     background-image: url("../assets/bkgd.jpg")
