@@ -49,21 +49,23 @@
                     <button type="button" class="btn btn-primary btn-block">Lucky!</button>
                 </div>
             </div>
-            <div class="col-sm-3" style="margin-top: 350px; margin-left: 60px; vertical-align: bottom">
+            <div class="col-sm-1" style="margin-top: 150px; margin-left: 50px">
+                <button id = "combineThem" type="button" class="btn btn-primary">Combine Them!</button>
+            </div>
+            <div class="col-sm-3" style="margin-top: 150px; margin-left: 50px; vertical-align: bottom">
                 <div class="row">
                     <div class="col" align="center">
-                        <img src="./assets/logo.jpg"/>
+                        <canvas id="memeCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
                     </div>
                 </div>
                 <div class="row" id="memeSection">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Input Your meme">
+                        <input id = "memeInput" type="text" class="form-control" placeholder="Input Your meme">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Submit</button>
+                            <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-block">Upload Slogan</button>
-
+                    <button id = "uploadImageButton" type="button" class="btn btn-primary btn-block">Upload Image</button>
                 </div>
                 <div class="row">
 
@@ -98,36 +100,19 @@
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary">Random</button>
             <button type="button" class="btn btn-secondary">Go Back</button>
-            <button type="button" class="btn btn-secondary">One More!</button>
+            <button id="one-more-button" type="button" class="btn btn-secondary">One More!</button>
         </div>
     </div>
     <div class="form-group">
         <br>Preview of Image<br>
         <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
         <br>Choose Frame Rate<br>
-        Frame Rate: <input type="text" id="delay" value="100"><br>
+        Frame Rate: <input type="text" id="delay" value="180"><br>
         <br>Choose Image Coordinates<br>
         X: <input type="text" id="image-x-location" value="0"><br>
         Y: <input type="text" id="image-y-location" value="0"><br>
         <button id="refreshButton" type="button" class="btn btn-secondary">Refresh</button>
         <button id="combineButton" type="button" class="btn btn-secondary">Download!</button>
-    </div>
-    <div class="text-container">
-        <div class="image-upload">
-            <img id="uploaded-image" src="./assets/no-image-place-holder.gif">
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" id="uploadImageButton" class="btn btn-secondary">Upload Image</button>
-        </div>
-        <div class="text-container">
-            <form>
-                <div class="form-group">
-                    <label id="slogan-label">Input Slogan</label>
-                    <input type="text" class="form-control" id="input-slogan" placeholder="Your Slogan">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 <script src="./script.js"></script>

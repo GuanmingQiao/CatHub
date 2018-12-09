@@ -28,7 +28,7 @@
             <input type="radio" name="options" id="option2" autocomplete="off"> Color
         </label>
         <label data-target="#carouselExampleIndicators" data-slide-to="2" class="btn btn-light cat-btn ">
-            <input type="radio" name="options" id="option3" autocomplete="off"> Mood
+            <input type="radio" name="options" id="option3" autocomplete="off"> Funny Tags
         </label>
     </div>
 
@@ -43,32 +43,32 @@
                 <!--<img class="d-block w-100" src=".../800x400?auto=yes&bg=777&fg=555&text=First slide" alt="First slide">-->
                 <div class="profile_container">
                     <section id="cat_profiles">
-                        <img class='cat_profile' src="assets/profiles/bombay.png" alt="british-shorthair">
-                        <img class='cat_profile' src="assets/profiles/burmese.png" alt="burmese">
-                        <img class='cat_profile' src="assets/profiles/burmilla.png" alt="burmilla">
-                        <img class='cat_profile' src="assets/profiles/british-shorthair.png" alt="british-shorthair">
-                        <img class='cat_profile' src="assets/profiles/chartreux.png" alt="chartreux">
-                        <img class='cat_profile' src="assets/profiles/cornish-rex.png" alt="cornish-rex">
-                        <img class='cat_profile' src="assets/profiles/egyptian-mau.png" alt="egyptian-mau">
-                        <img class='cat_profile' src="assets/profiles/exotic-shorthair.png" alt="exotic-shorthair">
-                        <img class='cat_profile' src="assets/profiles/havana.png" alt="havana-cat">
-                        <img class='cat_profile' src="assets/profiles/cymric.png" alt="cymric">
+                        <img class='cat_profile' src="assets/profiles/bombay.png" alt="bombay" data-toggle="tooltip" data-placement="top" title="Bombay">
+                        <img class='cat_profile' src="assets/profiles/burmese.png" alt="burmese" data-toggle="tooltip" data-placement="top" title="Burmese">
+                        <img class='cat_profile' src="assets/profiles/burmilla.png" alt="burmilla" data-toggle="tooltip" data-placement="top" title="Burmilla">
+                        <img class='cat_profile' src="assets/profiles/british-shorthair.png" alt="british-shorthair" data-toggle="tooltip" data-placement="top" title="British Shorthair">
+                        <img class='cat_profile' src="assets/profiles/chartreux.png" alt="chartreux" data-toggle="tooltip" data-placement="top" title="Chartreux">
+                        <img class='cat_profile' src="assets/profiles/cornish-rex.png" alt="cornish-rex" data-toggle="tooltip" data-placement="top" title="Cornish Rex">
+                        <img class='cat_profile' src="assets/profiles/egyptian-mau.png" alt="egyptian-mau" data-toggle="tooltip" data-placement="top" title="Egyptian Mau">
+                        <img class='cat_profile' src="assets/profiles/exotic-shorthair.png" alt="exotic-shorthair" data-toggle="tooltip" data-placement="top" title="Exotic Shorthair">
+                        <img class='cat_profile' src="assets/profiles/havana.png" alt="havana-cat" data-toggle="tooltip" data-placement="top" title="Havana">
+                        <img class='cat_profile' src="assets/profiles/cymric.png" alt="cymric" data-toggle="tooltip" data-placement="top" title="Cymric">
                     </section>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="profile_container">
                     <section id="cat_colors">
-                        <img class='cat_profile' src="assets/profiles/bombay.png" alt="british-shorthair">
-                        <img class='cat_profile' src="assets/profiles/burmese.png" alt="burmese">
-                        <img class='cat_profile' src="assets/profiles/burmilla.png" alt="burmilla">
-                        <img class='cat_profile' src="assets/profiles/british-shorthair.png" alt="british-shorthair">
-                        <img class='cat_profile' src="assets/profiles/chartreux.png" alt="chartreux">
-                        <img class='cat_profile' src="assets/profiles/cornish-rex.png" alt="cornish-rex">
-                        <img class='cat_profile' src="assets/profiles/egyptian-mau.png" alt="egyptian-mau">
-                        <img class='cat_profile' src="assets/profiles/exotic-shorthair.png" alt="exotic-shorthair">
-                        <img class='cat_profile' src="assets/profiles/havana.png" alt="havana-cat">
-                        <img class='cat_profile' src="assets/profiles/cymric.png" alt="cymric">
+                        <img class='cat_profile' src="assets/colors/calico.png" alt="calico" data-toggle="tooltip" data-placement="top" title="Calico">
+                        <img class='cat_profile' src="assets/colors/blue.png" alt="blue" data-toggle="tooltip" data-placement="top" title="Blue">
+                        <img class='cat_profile' src="assets/colors/ginger.png" alt="ginger" data-toggle="tooltip" data-placement="top" title="Ginger">
+                        <img class='cat_profile' src="assets/colors/fawn.png" alt="fawn" data-toggle="tooltip" data-placement="top" title="Fawn">
+                        <img class='cat_profile' src="assets/colors/colourpoint.png" alt="colourpoint" data-toggle="tooltip" data-placement="top" title="Colour Point">
+                        <img class='cat_profile' src="assets/colors/brown.png" alt="brown" data-toggle="tooltip" data-placement="top" title="Brown">
+                        <img class='cat_profile' src="assets/colors/white.png" alt="white" data-toggle="tooltip" data-placement="top" title="White">
+                        <img class='cat_profile' src="assets/colors/black.png" alt="black" data-toggle="tooltip" data-placement="top" title="Black">
+                        <img class='cat_profile' src="assets/colors/tortoiseshell.png" alt="tortoiseshell" data-toggle="tooltip" data-placement="top" title="Tortoiseshell">
+                        <img class='cat_profile' src="assets/colors/tabby.png" alt="tabby" data-toggle="tooltip" data-placement="top" title="Tabby">
                     </section>
                 </div>
             </div>
@@ -101,12 +101,15 @@
     </div>
 </div>
 <script>
-    var swingInterval = null;
-    var swing_deg = 15;
+    //
     $("#carouselExampleIndicators").on('slide.bs.carousel', function (e) {
         var idx = $(e.relatedTarget).index();
         $('[data-slide-to='+idx+']').button('toggle');
     });
+
+    // enable swing when hover
+    var swingInterval = null;
+    var swing_deg = 15;
     $(".cat_profile").mouseover( function(){
         var self = $(this);
         self.rotate({animateTo: swing_deg});
@@ -122,8 +125,12 @@
     }).click(function() {
         localStorage.setItem('cat_type', $(this).attr("alt"));
         window.location.href = 'combine.html';
-    })
+    });
 
+    // enable tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 </body>
 </html>
