@@ -24,14 +24,12 @@
     <!--customize css-->
     <link rel="stylesheet" href="./css/combine.css"/>
 
-    <!--upload script-->
-    <script src="js/upload.js"></script>
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Combine</title>
 </head>
 <body>
+<script src="./script.js"></script>
     <div class="container-fluid" id="combiner" style="padding-bottom: 150px">
         <div class="row">
             <div class="col-sm-3"></div>
@@ -56,7 +54,6 @@
             <div class="col-sm-3" style="margin-top: 150px; margin-left: 50px; vertical-align: bottom">
                 <div class="row">
                     <div class="col" align="center">
-                        <img id = "uploadedImg"/>
                         <canvas id="memeCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
                     </div>
                 </div>
@@ -67,7 +64,7 @@
                             <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
                         </div>
                     </div>
-                    <input class="btn btn-light btn-block" type="file" onchange="readURL(this)"/>
+                    <input id="file_upload_input" class="btn btn-light btn-block" type="file"/>
                     <button id="combineButton" type="button" class="btn btn-light btn-block">Combine</button>
                 </input>
             </div>
@@ -101,10 +98,9 @@
         X: <input type="text" id="image-x-location" value="0"><br>
         Y: <input type="text" id="image-y-location" value="0"><br>
         <button id="refreshButton" type="button" class="btn btn-secondary">Refresh</button>
-        <!--<button id="combineButton" type="button" class="btn btn-secondary">Download!</button>-->
+        <button id="downloadButton" type="button" class="btn btn-secondary">Download!</button>
     </div>
 </div>
-<script src="./script.js"></script>
 <!--<link rel="stylesheet" href="./style.css">-->
 <script>
     // This is how you get the cat type from index html

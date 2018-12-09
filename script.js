@@ -7,16 +7,18 @@ $(document).ready(function() {
     const refresh = document.getElementById("refreshButton");
     const oneMore = document.getElementById("one-more-button");
     const submitMeme = document.getElementById("submitMeme");
-    const combineButton = document.getElementById("combineThem");
+    const downloadButton = document.getElementById("downloadButton");
+    const combineButton = document.getElementById("combineButton");
+    const fileButton = document.getElementById("file_upload_input");
     let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
     var timeouts = [];
     var delay = parseInt($("#delay").val());
     var shouldEnd = false;
     let currentImage = new Image();
     currentImage.src = "./assets/logo.jpg";
-
     memeCanvas.width = document.getElementById('dataStore').width;
     memeCanvas.height = document.getElementById('dataStore').height;
+
     // For giphy api
     // Change the buttonname, inputquery, imagediv, loadingquery to use
     var apikey = 'dc6zaTOxFJmzC';
@@ -34,13 +36,21 @@ $(document).ready(function() {
         })
     }
 
-    // On click of upload image
-    loadImage.onclick = function () {
-        //TODO: OPEN FILE SYSTEM AND CHANGE CURRENTIMAGE TO THE UPLOADED IMAGE
-        currentImage.src = "./assets/logo.jpg"
-        memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
-        memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
-        currentImage.src = memeCanvas.toDataURL();
+    fileButton.onchange = function(e){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                currentImage.onload = function () {
+                    memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+                    memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
+                    currentImage.src = memeCanvas.toDataURL();
+                }
+                currentImage.src = e.target.result
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        }
     }
 
     // On click of submitting meme
@@ -88,7 +98,7 @@ $(document).ready(function() {
     }
 
     // Click to download
-    combineImage.onclick = function () {
+    downloadButton.onclick = function () {
         if (canvas.width == 0 || canvas.height == 0){
             alert("Please first upload a image")
         } else {
@@ -193,9 +203,6 @@ $(document).ready(function() {
             animate(index % length, length);
         }, delay) );
     }
-
-
-
 
     function encodeQueryData(data)
     {
