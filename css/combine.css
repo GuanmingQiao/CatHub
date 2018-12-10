@@ -8,6 +8,32 @@
     margin: auto;
 }
 
+.container-upper {
+    width: 100%;
+}
+
+.gif-search-container {
+    align-items: center;
+}
+
+.gif-preview {
+    width: 60%;
+    margin: auto;
+}
+
+.text-img-container {
+    align-items: center;
+}
+
+.text-img-preview {
+    width: 60%;
+    margin: auto;
+}
+
+#memeCanvas {
+    width: 60%;
+}
+
 .gif-nav {
     display: block;
     background: transparent;
@@ -42,16 +68,10 @@
 
 #combineButton {
     display: block;
+    width: 250px;
     margin: auto;
 }
 
 #combiner {
     background-image: url("../assets/bkgd.jpg")
-}
-
-#memeSection {
-    position: absolute;
-    bottom: 1px;
-    left: 17px;
-    width: 398px;
 }

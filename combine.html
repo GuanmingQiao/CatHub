@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="./js/libgif.js"></script>
     <script type="text/javascript" src="./js/rubbable.js"></script>
     <script type="text/javascript" src="./js/GIFEncoder.js"></script>
@@ -18,11 +18,18 @@
     <!--bootstrap script-->
     <script src="./js/bootstrap.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 
+    <!-- summernote -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
     <!--customize css-->
     <link rel="stylesheet" href="./css/combine.css"/>
+
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
@@ -35,10 +42,9 @@
             <img id="cathub-logo" src="assets/cathub.png" alt="cathub">
         </div>
 
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3" id="gif-preview" style="margin-top: 150px; margin-left: 60px">
-                <div class="row">
+        <div class="row container-upper">
+            <div class="col-sm-6 gif-search-container" id="gif-preview">
+                <div class="row gif-preview">
                     <a class="gif-nav" href="#" aria-label="Previous">
                         <span aria-hidden="true">
                             <img id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
@@ -57,7 +63,7 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <div class="row" style="margin-top: 30px">
+                <div class="row gif-preview" style="margin-top: 30px">
                     <div class="input-group mb-3">
                         <input id="gif-search-input" type="text" class="form-control" placeholder="Keywords for search">
                         <div class="input-group-append">
@@ -67,21 +73,20 @@
                     <button id="lucky-btn" type="button" class="btn btn-light btn-block">Lucky!</button>
                 </div>
             </div>
-            <div class="col-sm-3" style="margin-top: 150px; margin-left: 50px; vertical-align: bottom">
-                <div class="row">
+            <div class="col-sm-6 text-img-container">
+                <div class="row text-img-preview">
                     <div class="col" align="center">
-                        <canvas id="memeCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+                        <canvas id="memeCanvas"></canvas>
                     </div>
                 </div>
-                <div class="row" id="memeSection">
+                <div class="row text-img-preview" id="memeSection">
                     <div class="input-group mb-3">
                         <input id = "memeInput" type="text" class="form-control" placeholder="Input Your meme">
                         <div class="input-group-append">
                             <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
                         </div>
                     </div>
-                    <input id="file_upload_input" class="btn btn-light btn-block" type="file"/>
-                    </input>
+                    <input id="file_upload_input" class="btn btn-light btn-block" type="file">
                 </div>
             </div>
 
