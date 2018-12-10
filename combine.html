@@ -58,7 +58,7 @@
                     </a>
                     <div class="col" align="center">
                         <div class="cat-gif-container">
-                            <img id="dataStore" class="cat-gif" src="./assets/catStock.gif">
+                            <img id="cat-gif" class="cat-gif" src="./assets/catStock.gif">
                         </div>
                     </div>
                     <a class="gif-nav" href="#" aria-label="Next">
@@ -101,6 +101,7 @@
         </div>
         <img id="combineButton" src="assets/icons/combine-btn.png">
     </div>
+    <img id="dataStore" class="cat-gif" src="./assets/catStock.gif" style="display: none">
 
 <div>
     ==========================================================================================================================================================================================
@@ -109,17 +110,6 @@
 
 
 <div class="upper-container">
-    <div class="gif-container" layout="horizontal">
-        <div class="gif-preview">
-            <!--<img id="dataStore" src="./assets/catStock.gif" rel:animated_src="./assets/catStock.gif" rel:auto_play="0"-->
-                 <!--width=auto height=auto/>-->
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">Random</button>
-            <button type="button" class="btn btn-secondary">Go Back</button>
-            <button id="one-more-button" type="button" class="btn btn-secondary">One More!</button>
-        </div>
-    </div>
     <div class="form-group">
         <br>Preview of Image<br>
         <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>

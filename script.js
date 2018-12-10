@@ -2,14 +2,12 @@ $(document).ready(function() {
     const canvas = document.getElementById("myCanvas");
     const memeCanvas = document.getElementById("memeCanvas");
     const ctx = canvas.getContext('2d');
-    const loadImage = document.getElementById("uploadImageButton");
-    const combineImage = document.getElementById("combineButton");
     const refresh = document.getElementById("refreshButton");
-    const oneMore = document.getElementById("one-more-button");
     const submitMeme = document.getElementById("submitMeme");
     const downloadButton = document.getElementById("downloadButton");
     const combineButton = document.getElementById("combineButton");
     const fileButton = document.getElementById("file_upload_input");
+    const catGif = document.getElementById("cat-gif");
     let sup1 = new SuperGif({gif: document.getElementById('dataStore')});
     var timeouts = [];
     var delay = parseInt($("#delay").val());
@@ -22,12 +20,13 @@ $(document).ready(function() {
 
     // On click of combine button
     combineButton.onclick = function () {
-        sup1.load(function () {
-            delay = parseInt($("#delay").val());
-            setTimeout(function () {
-                showPreview();
-            }, delay)
-        })
+        sup1.load_url(catGif.src,
+            function () {
+                delay = parseInt($("#delay").val())
+                setTimeout(function () {
+                    showPreview();
+                }, delay)
+            });
     };
 
     fileButton.onchange = function (e) {
@@ -57,22 +56,6 @@ $(document).ready(function() {
         memeCanvas.getContext('2d').font = '48px serif';
         memeCanvas.getContext('2d').fillText(memeInput, 10, 50);
         currentImage.src = memeCanvas.toDataURL();
-    };
-
-    // On clicking one more
-    oneMore.onclick = function () {
-        if (canvas.width == 0 || canvas.height == 0) {
-            document.getElementById('dataStore').src = "./assets/logo.jpg";
-            sup1 = new SuperGif({gif: document.getElementById('dataStore')});
-        } else {
-            sup1.load_url("./assets/logo.jpg",
-                function () {
-                    delay = parseInt($("#delay").val())
-                    setTimeout(function () {
-                        showPreview();
-                    }, delay)
-                });
-        }
     };
 
     // On click of refresh, try to stop all timeout events, then start a new loop
@@ -204,7 +187,7 @@ $(document).ready(function() {
 var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
 var list = [];
 var cur = -1;
-var imagediv = "dataStore";
+var imagediv = "cat-gif";
 
 function encodeQueryData(data)
 {
@@ -268,6 +251,7 @@ function next(){
         cur = cur + 1;
     }
     document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+
 }
 
 var keyword = localStorage.getItem('cat_type');
