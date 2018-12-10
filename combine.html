@@ -47,7 +47,7 @@
                 <div class="row gif-preview">
                     <a class="gif-nav" href="#" aria-label="Previous">
                         <span aria-hidden="true">
-                            <img id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
+                            <img onclick="previous()" id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
                         </span>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -58,7 +58,7 @@
                     </div>
                     <a class="gif-nav" href="#" aria-label="Next">
                         <span aria-hidden="true">
-                            <img id="next-icon" class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
+                            <img onclick="next()" id="next-icon" class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
                         </span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -83,7 +83,7 @@
                     <div class="input-group mb-3">
                         <input id = "memeInput" type="text" class="form-control" placeholder="Input Your meme">
 
-                        
+
 
                         <div class="input-group-append">
                             <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
@@ -130,7 +130,6 @@
 <!--<link rel="stylesheet" href="./style.css">-->
 <script>
     // This is how you get the cat type from index html
-    console.log(localStorage.getItem('cat_type'));
 </script>
 </body>
 </html>

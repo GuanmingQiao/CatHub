@@ -10,7 +10,7 @@ $(document).ready(function() {
     const downloadButton = document.getElementById("downloadButton");
     const combineButton = document.getElementById("combineButton");
     const fileButton = document.getElementById("file_upload_input");
-    let sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
+    let sup1 = new SuperGif({gif: document.getElementById('dataStore')});
     var timeouts = [];
     var delay = parseInt($("#delay").val());
     var shouldEnd = false;
@@ -22,15 +22,15 @@ $(document).ready(function() {
 
     // On click of combine button
     combineButton.onclick = function () {
-        sup1.load(function(){
+        sup1.load(function () {
             delay = parseInt($("#delay").val())
-            setTimeout(function() {
+            setTimeout(function () {
                 showPreview();
             }, delay)
         })
     }
 
-    fileButton.onchange = function(e){
+    fileButton.onchange = function (e) {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
     // On click of submitting meme
     submitMeme.onclick = function () {
         let memeInput = $("#memeInput").val();
-        if (memeInput == null || memeInput == ""){
+        if (memeInput == null || memeInput == "") {
             alert("Please input a meme text");
         }
         memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
@@ -60,30 +60,30 @@ $(document).ready(function() {
     }
 
     // On clicking one more
-    oneMore.onclick = function (){
-        if (canvas.width == 0 || canvas.height == 0){
+    oneMore.onclick = function () {
+        if (canvas.width == 0 || canvas.height == 0) {
             document.getElementById('dataStore').src = "./assets/logo.jpg";
-            sup1 = new SuperGif({ gif: document.getElementById('dataStore') } );
+            sup1 = new SuperGif({gif: document.getElementById('dataStore')});
         } else {
             sup1.load_url("./assets/logo.jpg",
-            function(){
-                delay = parseInt($("#delay").val())
-                setTimeout(function() {
-                    showPreview();
-                }, delay)
-            });
+                function () {
+                    delay = parseInt($("#delay").val())
+                    setTimeout(function () {
+                        showPreview();
+                    }, delay)
+                });
         }
     }
 
     // On click of refresh, try to stop all timeout events, then start a new loop
     refresh.onclick = function () {
-        if (canvas.width == 0 || canvas.height == 0){
+        if (canvas.width == 0 || canvas.height == 0) {
             alert("Nothing to refresh!")
         } else {
-            sup1.load(function(){
+            sup1.load(function () {
                 shouldEnd = true;
                 delay = parseInt($("#delay").val())
-                setTimeout(function() {
+                setTimeout(function () {
                     shouldEnd = false;
                     showPreview();
                 }, delay)
@@ -93,7 +93,7 @@ $(document).ready(function() {
 
     // Click to download
     downloadButton.onclick = function () {
-        if (canvas.width == 0 || canvas.height == 0){
+        if (canvas.width == 0 || canvas.height == 0) {
             alert("Please first upload a image")
         } else {
             download();
@@ -125,8 +125,8 @@ $(document).ready(function() {
         // Number of screenshots to take == number of frames in the original GIF
         // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
         // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
-        var grabRate  = delay;
-        var count     = 0;
+        var grabRate = delay;
+        var count = 0;
         let grabLimit = sup1.get_length();
 
         // Start GIFEncoder to Capture Individual PNGs
@@ -141,16 +141,16 @@ $(document).ready(function() {
             console.log('Finishing');
             encoder.finish();
             var binary_gif = encoder.stream().getData();
-            var data_url = 'data:image/gif;base64,'+encode64(binary_gif);
+            var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
             var p = document.createElement('p'); // is a node
             p.innerHTML = '<img src="' + data_url + '"/>\n';
             document.getElementsByTagName('body')[0].appendChild(p);
         }
 
         // Implementation of Image Grabbing
-        var grabber = setInterval(function(){
+        var grabber = setInterval(function () {
             count++;
-            if (count>grabLimit) {
+            if (count > grabLimit) {
                 clearInterval(grabber);
                 showResults();
             } else {
@@ -161,27 +161,25 @@ $(document).ready(function() {
 
     // Function to drive the canvas display of combined images
     function animate(index, length) {
-        if (shouldEnd){
+        if (shouldEnd) {
             return;
         }
         delay = parseInt($("#delay").val())
         logo_image = new Image();
         logo_image.src = currentImage.src;
-        logo_image.onload = function(){
+        logo_image.onload = function () {
             const frame_image_src = sup1.get_canvas().toDataURL();
             frame_image = new Image();
             frame_image.src = frame_image_src;
-            frame_image.onload = function(){
+            frame_image.onload = function () {
                 ctx.drawImage(frame_image, 0, 0);
                 ctx.drawImage(logo_image, parseInt($("#image-x-location").val()), parseInt($("#image-y-location").val()));
-                try
-                {
+                try {
                     sup1.move_to(index);
                     index++;
                     recurse(index, length);
                 }
-                catch(e)
-                {
+                catch (e) {
                     // Force it
                     sup1.move_to(index);
                     index++;
@@ -192,109 +190,98 @@ $(document).ready(function() {
         }
     }
 
-    function recurse(index, length){
-        timeouts.push( setTimeout(function() {
+    function recurse(index, length) {
+        timeouts.push(setTimeout(function () {
             animate(index % length, length);
-        }, delay) );
+        }, delay));
     }
+});
 
 
 
+// For giphy api
+// Change the buttonname, inputquery, imagediv, loadingquery to use
+var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
+var list = [];
+var cur = -1;
+var imagediv = "dataStore";
 
+function encodeQueryData(data)
+{
+    var ret = [];
+    for (var d in data)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    return ret.join("&");
+}
 
-
-
-
-
-
-
-
-
-    // For giphy api
-    // Change the buttonname, inputquery, imagediv, loadingquery to use
-    var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
-    var list = []
-    var cur = -1
-    var imagediv = "dataStore"
-    var InputQuery = ""
-
-
-    function encodeQueryData(data)
-    {
-        var ret = [];
-        for (var d in data)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-        return ret.join("&");
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
     }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+}
 
-    function httpGetAsync(theUrl, callback)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                callback(xmlHttp.responseText);
-        }
-        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-        xmlHttp.send(null);
-    }
+/*
+* The following functions are what do the work for retrieving and displaying gifs
+* that we search for.
+*/
 
-    /*
-    * The following functions are what do the work for retrieving and displaying gifs
-    * that we search for.
-    */
+function getGif(query) {
+    console.log(query);
+    query = query.replace(' ', '+');
+    var params = { 'api_key': apikey, 'q': query};
+    params = encodeQueryData(params);
 
-    function getGif(query) {
-        console.log(query);
-        query = query.replace(' ', '+');
-        var params = { 'api_key': apikey, 'q': query};
-        params = encodeQueryData(params);
+    // api from https://github.com/Giphy/GiphyAPI#search-endpoint
 
-        // api from https://github.com/Giphy/GiphyAPI#search-endpoint 
-
-        httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
-            var gifs = JSON.parse(data);
-            list = gifs.data
-            var rand = Math.floor(Math.random() * gifs.data.length);
-            cur = rand
-            var gif = list[cur].images.fixed_width.url;
-            document.getElementById(imagediv).src=gif;
-            list.push(gif);
-            console.log(gifs.data);
-        });
-    }
-
-    function previous(){
-        console.log(cur, list.length)
-        if (cur <= 0){
-            cur = list.length - 2
-        } else{
-            cur = cur - 1;
-        }
-        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
-    }
-
-    function next(){
-        console.log(cur, list.length)
-        if (cur >= list.length-2){
-            cur = 0
-        } else {
-            cur = cur + 1;
-        }
-        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
-        
-    }
-
-    getGif(localStorage.getItem('cat_type') + " cat");
-    $("#search-btn").on("click", function() {
-        InputQuery = $("#gif-search-input").val() + " cat";
-        getGif(InputQuery);
+    httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
+        var gifs = JSON.parse(data);
+        list = gifs.data
+        var rand = Math.floor(Math.random() * gifs.data.length);
+        cur = rand
+        var gif = list[cur].images.fixed_width.url;
+        document.getElementById(imagediv).src=gif;
+        list.push(gif);
+        console.log(gifs.data);
     });
+}
 
-    $("#next-icon").on("click", function(){
-        next();
-    })
+function previous(){
+    console.log(cur, list.length)
+    if (cur <= 0){
+        cur = list.length - 2
+    } else{
+        cur = cur - 1;
+    }
+    document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+}
 
-    $("#prev-icon").on("click", function(){
-        previous();
-    })
+function next(){
+    console.log(cur, list.length)
+    if (cur >= list.length-2){
+        cur = 0
+    } else {
+        cur = cur + 1;
+    }
+    document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+}
+
+var keyword = localStorage.getItem('cat_type');
+getGif( keyword+ " cat");
+
+$("#search-btn").on("click", function() {
+    InputQuery = $("#gif-search-input").val() + " cat";
+    getGif(InputQuery);
+});
+
+$("#next-icon").on("click", function(){
+    next();
+})
+
+$("#prev-icon").on("click", function(){
+    previous();
 })
