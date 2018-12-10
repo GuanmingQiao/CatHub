@@ -2,7 +2,6 @@ $(document).ready(function() {
     const canvas = document.getElementById("myCanvas");
     const memeCanvas = document.getElementById("memeCanvas");
     const ctx = canvas.getContext('2d');
-    const refresh = document.getElementById("refreshButton");
     const submitMeme = document.getElementById("submitMeme");
     const downloadButton = document.getElementById("downloadButton");
     const combineButton = document.getElementById("combineButton");
@@ -56,22 +55,6 @@ $(document).ready(function() {
         memeCanvas.getContext('2d').font = '48px serif';
         memeCanvas.getContext('2d').fillText(memeInput, 10, 50);
         currentImage.src = memeCanvas.toDataURL();
-    };
-
-    // On click of refresh, try to stop all timeout events, then start a new loop
-    refresh.onclick = function () {
-        if (canvas.width == 0 || canvas.height == 0) {
-            alert("Nothing to refresh!")
-        } else {
-            sup1.load(function () {
-                shouldEnd = true;
-                delay = parseInt($("#delay").val())
-                setTimeout(function () {
-                    shouldEnd = false;
-                    showPreview();
-                }, delay)
-            });
-        }
     };
 
     // Click to download
