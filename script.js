@@ -23,12 +23,12 @@ $(document).ready(function() {
     // On click of combine button
     combineButton.onclick = function () {
         sup1.load(function () {
-            delay = parseInt($("#delay").val())
+            delay = parseInt($("#delay").val());
             setTimeout(function () {
                 showPreview();
             }, delay)
         })
-    }
+    };
 
     fileButton.onchange = function (e) {
         if (this.files && this.files[0]) {
@@ -45,7 +45,7 @@ $(document).ready(function() {
 
             reader.readAsDataURL(this.files[0]);
         }
-    }
+    };
 
     // On click of submitting meme
     submitMeme.onclick = function () {
@@ -57,7 +57,7 @@ $(document).ready(function() {
         memeCanvas.getContext('2d').font = '48px serif';
         memeCanvas.getContext('2d').fillText(memeInput, 10, 50);
         currentImage.src = memeCanvas.toDataURL();
-    }
+    };
 
     // On clicking one more
     oneMore.onclick = function () {
@@ -73,7 +73,7 @@ $(document).ready(function() {
                     }, delay)
                 });
         }
-    }
+    };
 
     // On click of refresh, try to stop all timeout events, then start a new loop
     refresh.onclick = function () {
@@ -89,7 +89,7 @@ $(document).ready(function() {
                 }, delay)
             });
         }
-    }
+    };
 
     // Click to download
     downloadButton.onclick = function () {
@@ -98,7 +98,7 @@ $(document).ready(function() {
         } else {
             download();
         }
-    }
+    };
 
     // Shows the combined canvas without download
     function showPreview() {
@@ -280,8 +280,11 @@ $("#search-btn").on("click", function() {
 
 $("#next-icon").on("click", function(){
     next();
-})
+});
 
 $("#prev-icon").on("click", function(){
     previous();
-})
+});
+
+
+

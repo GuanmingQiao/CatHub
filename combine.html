@@ -7,6 +7,7 @@
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./js/libgif.js"></script>
     <script type="text/javascript" src="./js/rubbable.js"></script>
     <script type="text/javascript" src="./js/GIFEncoder.js"></script>
@@ -19,6 +20,7 @@
     <script src="./js/bootstrap.js"></script>
     <script src="./js/bootstrap.min.js"></script>
 
+
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -26,6 +28,9 @@
     <!-- summernote -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+    <!-- html2canvas -->
+    <script src="js/html2canvas.js"></script>
+    <script src="js/html2canvas.min.js"></script>
 
     <!--customize css-->
     <link rel="stylesheet" href="./css/combine.css"/>
@@ -82,12 +87,12 @@
                 <div class="row text-img-preview" id="memeSection">
                     <div class="input-group mb-3">
                         <input id = "memeInput" type="text" class="form-control" placeholder="Input Your meme">
-
-
-
                         <div class="input-group-append">
                             <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
                         </div>
+                    </div>
+                    <div class="text-editor-container">
+                        <div id="summernote-text-editor"></div>
                     </div>
                     <input id="file_upload_input" class="btn btn-light btn-block" type="file">
                 </div>
@@ -129,7 +134,23 @@
 </div>
 <!--<link rel="stylesheet" href="./style.css">-->
 <script>
-    // This is how you get the cat type from index html
+    $('#summernote-text-editor').summernote({
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
+    }).on('summernote.change', function(){
+        var targetCanvas = $("#memeCanvas");
+        html2canvas(document.querySelector(".note-editable"), {canvas: document.querySelector("#memeCanvas")});
+    });
+
+
+
 </script>
 </body>
 </html>
