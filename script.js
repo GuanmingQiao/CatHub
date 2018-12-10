@@ -264,21 +264,24 @@ $(document).ready(function() {
     }
 
     function previous(){
+        console.log(cur, list.length)
         if (cur <= 0){
-            getGif(InputQuery);
+            cur = list.length - 2
         } else{
             cur = cur - 1;
-            document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
         }
+        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
     }
 
     function next(){
-        if (cur >= list.length-1){
-            getGif(InputQuery);
+        console.log(cur, list.length)
+        if (cur >= list.length-2){
+            cur = 0
         } else {
             cur = cur + 1;
-            document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
         }
+        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+        
     }
 
     getGif(localStorage.getItem('cat_type') + " cat");
