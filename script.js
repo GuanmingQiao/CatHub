@@ -216,6 +216,7 @@ $(document).ready(function() {
     var list = []
     var cur = -1
     var imagediv = "dataStore"
+    var InputQuery = ""
 
 
     function encodeQueryData(data)
@@ -252,39 +253,38 @@ $(document).ready(function() {
 
         httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
             var gifs = JSON.parse(data);
+            list = gifs.data
             var rand = Math.floor(Math.random() * gifs.data.length);
-            var gif = gifs.data[rand].images.fixed_width.url;
+            cur = rand
+            var gif = list[cur].images.fixed_width.url;
             document.getElementById(imagediv).src=gif;
             list.push(gif);
-            cur = cur + 1;
             console.log(gifs.data);
         });
     }
 
     function previous(){
-        console.log(cur,list)
         if (cur <= 0){
-            alert("No more previous gif.");
+            getGif(InputQuery);
         } else{
             cur = cur - 1;
-            document.getElementById(imagediv).src=list[cur];
+            document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
         }
     }
 
     function next(){
-        console.log(cur,list)
         if (cur >= list.length-1){
-            alert("No more next gif.");
+            getGif(InputQuery);
         } else {
             cur = cur + 1;
-            document.getElementById(imagediv).src=list[cur];
+            document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
         }
     }
 
-    getGif(localStorage.getItem('cat_type'));
+    getGif(localStorage.getItem('cat_type') + " cat");
     $("#search-btn").on("click", function() {
-        var query = $("#gif-search-input").val();
-        getGif(query);
+        InputQuery = $("#gif-search-input").val() + " cat";
+        getGif(InputQuery);
     });
 
     $("#next-icon").on("click", function(){
