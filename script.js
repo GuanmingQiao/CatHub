@@ -239,7 +239,10 @@ $(document).ready(function() {
         getGif(InputQuery);
     });
 
-
+    $("#lucky-btn").on("click", function(){
+        document.getElementById(imagediv).src = loading_src;
+        getGif("cat");
+    })
 
     $("#next-icon").on("click", function(){
         document.getElementById(imagediv).src = loading_src;
