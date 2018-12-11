@@ -8,7 +8,8 @@ $(document).ready(function() {
     const catGif = document.getElementById("cat-gif");
     let sup1 = new SuperGif({gif: document.getElementById('dataStore')});
     var timeouts = [];
-    var delay = parseInt($("#delay").val());
+    var selectedDelay = 80;
+    var displayedDelay = null;
     var shouldEnd = false;
     let currentImage = new Image();
     currentImage.src = "./assets/logo.jpg";
@@ -30,13 +31,13 @@ $(document).ready(function() {
         var r = parseFloat(memeCanvas.style.width)/parseFloat(memeCanvas.style.height);
         frontendIMG.style.width = catGif.style.width;
         frontendIMG.style.height = (parseFloat(catGif.style.width)/r)+'%';
-
+        displayedDelay = selectedDelay
         sup1.load_url(backendGIF.src,
             function () {
                 delay = parseInt($("#delay").val());
                 setTimeout(function () {
                     showPreview();
-                }, delay)
+                }, displayedDelay)
             });
     };
 
@@ -89,12 +90,29 @@ $(document).ready(function() {
         animate(0, grabLimit);
     }
 
+    function setDelay(url){
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", url, true);
+        oReq.responseType = "arraybuffer";
+
+        oReq.onload = function (oEvent) {
+            var arrayBuffer = oReq.response; // Note: not oReq.responseText
+            if (arrayBuffer) {
+                gif = new GIF(arrayBuffer);
+                var frames = gif.decompressFrames(true);
+                selectedDelay = frames[0].delay
+            }
+        };
+
+        oReq.send(null);
+    }
+
     // To download image
     function download() {
         // Number of screenshots to take == number of frames in the original GIF
         // Milliseconds. 500 = half a second, should gives animation function 50 extra milliseconds to load (for Chrome)
         // e.g. the setTimeout of enterLoop is 200, then this grabRate should be 300
-        var grabRate = delay;
+        var grabRate = displayedDelay;
         var count = 0;
         let grabLimit = sup1.get_length();
 
@@ -133,7 +151,6 @@ $(document).ready(function() {
         if (shouldEnd) {
             return;
         }
-        delay = parseInt($("#delay").val());
         logo_image = new Image();
         logo_image.src = currentImage.src;
         // logo_image.width = Math.floor(currentImage.width / 4);
@@ -151,6 +168,7 @@ $(document).ready(function() {
                 var x0 = parseInt($("#image-x-location").val());
                 var y0 = parseInt($("#image-y-location").val());
                 ctx.drawImage(logo_image, x0, y0, x0+Math.floor(h), y0+Math.floor(w));
+
                 try {
                     sup1.move_to(index);
                     index++;
@@ -170,7 +188,7 @@ $(document).ready(function() {
     function recurse(index, length) {
         timeouts.push(setTimeout(function () {
             animate(index % length, length);
-        }, delay));
+        }, displayedDelay));
     }
 
 
@@ -231,6 +249,7 @@ $(document).ready(function() {
                 img.style.width = (90.0*ratio)+'%';
             }
             img.src=gifurl;
+            setDelay(gifurl);
             list.push(gifurl);
             console.log(gifs.data);
         });
