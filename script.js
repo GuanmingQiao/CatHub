@@ -276,6 +276,7 @@ $(document).ready(function() {
             cur = cur - 1;
         }
         var gifurl = list[cur].images.fixed_width.url;
+        setDelay(gifurl)
         var gifMeta = list[cur].images.fixed_width;
         var img = document.getElementById(imagediv);
         var ratio = parseFloat(gifMeta.width)/parseFloat(gifMeta.height);
@@ -297,6 +298,7 @@ $(document).ready(function() {
             cur = cur + 1;
         }
         var gifurl = list[cur].images.fixed_width.url;
+        setDelay(gifurl)
         var gifMeta = list[cur].images.fixed_width;
         var img = document.getElementById(imagediv);
         var ratio = parseFloat(gifMeta.width)/parseFloat(gifMeta.height);
