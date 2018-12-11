@@ -81,11 +81,6 @@
     background-color: #da318fd6
 }
 
-.jsgif {
-    hidden: true;
-    display: none;
-}
-
 #combineButton {
     display: block;
     width: 250px;
@@ -140,4 +135,8 @@
 
 .download-btn {
     width: 300px;
+}
+
+.jsgif {
+    display: none;
 }
