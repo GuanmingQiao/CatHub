@@ -60,11 +60,7 @@ $(document).ready(function() {
 
     // Click to download
     downloadButton.onclick = function () {
-        if (canvas.width == 0 || canvas.height == 0) {
-            alert("Please first upload a image")
-        } else {
-            download();
-        }
+        download();
     };
 
     // Shows the combined canvas without download
@@ -126,9 +122,17 @@ $(document).ready(function() {
             encoder.finish();
             var binary_gif = encoder.stream().getData();
             var data_url = 'data:image/gif;base64,' + encode64(binary_gif);
-            var p = document.createElement('p'); // is a node
-            p.innerHTML = '<img src="' + data_url + '"/>\n';
-            document.getElementsByTagName('body')[0].appendChild(p);
+
+            var link = document.createElement("a");
+            link.download = "CatHub-Image" + data_url;
+            link.href = data_url;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            delete link;
+            // var p = document.createElement('p'); // is a node
+            // p.innerHTML = '<img src="' + data_url + '"/>\n';
+            // document.getElementsByTagName('body')[0].appendChild(p);
         }
 
         // Implementation of Image Grabbing
