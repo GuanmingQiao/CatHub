@@ -13,6 +13,8 @@ $(document).ready(function() {
     let currentImage = new Image();
     currentImage.src = "./assets/logo.jpg";
 
+    var loading_src = "./assets/icons/loading-icon.gif";
+
     const backendGIF = document.getElementById("backend-gif");
     const frontendIMG = document.getElementById("frontend-img");
 
@@ -232,21 +234,26 @@ $(document).ready(function() {
     getGif( keyword+ " cat");
 
     $("#search-btn").on("click", function() {
+        document.getElementById(imagediv).src = loading_src;
         InputQuery = $("#gif-search-input").val() + " cat";
         getGif(InputQuery);
     });
 
+
+
     $("#next-icon").on("click", function(){
+        document.getElementById(imagediv).src = loading_src;
         next();
     });
 
     $("#prev-icon").on("click", function(){
+        document.getElementById(imagediv).src = loading_src;
         previous();
     });
 
 
 
-    $( "#frontend-img" ).draggable({containment: $("#bound")});
+    $( "#frontend-img" ).draggable();
     // $( "#backend-gif" ).draggable({containment: $("#bound")});
 
     function getPosition(element) {
