@@ -54,7 +54,7 @@
                 <div class="row gif-preview">
                     <a class="gif-nav" href="#" aria-label="Previous">
                         <span aria-hidden="true">
-                            <img onclick="previous()" id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
+                            <img id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
                         </span>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -65,7 +65,7 @@
                     </div>
                     <a class="gif-nav" href="#" aria-label="Next">
                         <span aria-hidden="true">
-                            <img onclick="next()" id="next-icon" class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
+                            <img id="next-icon" class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
                         </span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -110,7 +110,13 @@
 <div class="upper-container">
     <div class="form-group">
         <br>Preview of Image<br>
+        <div id="bound" width=500 height=500></div>
+
+        <img id="backend-gif">
+        <img id="frontend-img">
+
         <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+
         <br>Choose Frame Rate<br>
         Frame Rate: <input type="text" id="delay" value="180"><br>
         <br>Choose Image Coordinates<br>

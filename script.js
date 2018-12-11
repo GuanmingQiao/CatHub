@@ -13,8 +13,14 @@ $(document).ready(function() {
     let currentImage = new Image();
     currentImage.src = "./assets/logo.jpg";
 
+    const backendGIF = document.getElementById("backend-gif");
+    const frontendIMG = document.getElementById("frontend-img");
+
     // On click of combine button
     combineButton.onclick = function () {
+        backendGIF.src = catGif.src;
+        currentImage.src = memeCanvas.toDataURL();
+        frontendIMG.src = currentImage.src;
         sup1.load_url(catGif.src,
             function () {
                 delay = parseInt($("#delay").val())
@@ -237,6 +243,35 @@ $(document).ready(function() {
     $("#prev-icon").on("click", function(){
         previous();
     });
+
+
+
+    $( "#frontend-img" ).draggable({containment: $("#bound")});
+    // $( "#backend-gif" ).draggable({containment: $("#bound")});
+
+    function getPosition(element) {
+        const {top, left, width, height} = element.getBoundingClientRect();
+        return {x: top, y: left};
+    }
+
+    function getDistanceBetweenElements(a, b){
+        const aPosition = getPosition(a);
+        const bPosition = getPosition(b);
+        const left = bPosition.x - aPosition.x;
+        const top = bPosition.y - aPosition.y;
+        var string = "x: " + left + "; y:" + top;
+        return [left, top];
+    }
+
+
+    $("#frontend-img").mouseup(function(){
+        // debugger
+        console.log("boom")
+        var a = getDistanceBetweenElements(backendGIF, frontendIMG);
+        document.getElementById("image-x-location").value = a[1].toString();
+        document.getElementById("image-y-location").value = a[0].toString();
+    });
+
 
 });
 
