@@ -19,6 +19,12 @@ $(document).ready(function() {
     const backendGIF = document.getElementById("backend-gif");
     const frontendIMG = document.getElementById("frontend-img");
 
+    var x0 = 0;
+    var y0 = 0;
+    var dx = 0;
+    var dy = 0;
+
+
     var upload_image = false
 
 
@@ -165,22 +171,20 @@ $(document).ready(function() {
             return;
         }
         logo_image = new Image();
-        logo_image.src = currentImage.src;
+        logo_image.src = document.getElementById("memeCanvas").toDataURL();
         // logo_image.width = Math.floor(currentImage.width / 4);
         // logo_image.height = Math.floor(currentImage.height / 4);
         logo_image.onload = function () {
-            const frame_image_src = sup1.get_canvas().toDataURL();
-            var w = parseFloat(sup1.get_canvas().width);
-            console.log(w);
-            var r = parseFloat(currentImage.style.width)/parseFloat(currentImage.style.height);
-            var h = w/r;
             frame_image = new Image();
-            frame_image.src = frame_image_src;
+            frame_image.src = sup1.get_canvas().toDataURL();
             frame_image.onload = function () {
-                ctx.drawImage(frame_image, 0, 0);
-                var x0 = parseInt($("#image-x-location").val());
-                var y0 = parseInt($("#image-y-location").val());
-                ctx.drawImage(logo_image, x0, y0, x0+Math.floor(h), y0+Math.floor(w));
+                ctx.drawImage(this, 0, 0);
+                console.log(x0);
+                console.log(y0);
+                console.log(dx);
+                console.log(dy);
+                debugger
+                ctx.drawImage(logo_image, 0, 0, logo_image.width, logo_image.height, x0, y0, dx, dy);
 
                 try {
                     sup1.move_to(index);
@@ -338,24 +342,31 @@ $(document).ready(function() {
 
 
     function getPosition(element) {
-        const {top, left, width, height} = element.getBoundingClientRect();
-        return {x: top, y: left};
+        var top = element.offsetTop;
+        var left = element.offsetLeft;
+        return {x: left, y: top};
     }
 
     function getDistanceBetweenElements(a, b){
         const aPosition = getPosition(a);
         const bPosition = getPosition(b);
-        const top = (bPosition.x - aPosition.x);
-        const left = (bPosition.y - aPosition.y);
+        const top = (bPosition.y - aPosition.y) + a.height/2;
+        const left = (bPosition.x - aPosition.x);
         return [top, left];
     }
 
     $("#frontend-img").draggable({containment: $("#backend-gif")})
         .mouseup(function(){
-        var a = getDistanceBetweenElements(backendGIF, frontendIMG);
-        document.getElementById("image-x-location").value = a[1].toString();
-        document.getElementById("image-y-location").value = a[0].toString();
-    });
+            var a = getDistanceBetweenElements(backendGIF, frontendIMG);
+            document.getElementById("image-x-location").value = a[1].toString();
+            document.getElementById("image-y-location").value = a[0].toString();
+            x0 = parseInt($("#image-x-location").val());
+            y0 = parseInt($("#image-y-location").val());
+            x0 = x0 / backendGIF.width * sup1.get_canvas().width;
+            y0 = y0 / backendGIF.height * sup1.get_canvas().height;
+            dx = sup1.get_canvas().width*(frontendIMG.width/backendGIF.width);
+            dy = sup1.get_canvas().height*(frontendIMG.height/backendGIF.height);
+        });
 });
 
 
