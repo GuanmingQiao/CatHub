@@ -19,6 +19,9 @@ $(document).ready(function() {
     const backendGIF = document.getElementById("backend-gif");
     const frontendIMG = document.getElementById("frontend-img");
 
+    var upload_image = false
+
+
     const enlargeRatio = 2;
     // On click of combine button
     combineButton.onclick = function () {
@@ -29,8 +32,11 @@ $(document).ready(function() {
         frontendIMG.src = memeCanvas.toDataURL();
         console.log(memeCanvas.style.width);
         var r = parseFloat(memeCanvas.style.width)/parseFloat(memeCanvas.style.height);
-        frontendIMG.style.width = catGif.style.width;
-        frontendIMG.style.height = (parseFloat(catGif.style.width)/r)+'%';
+        if (!upload_image){
+            frontendIMG.style.width = catGif.style.width;
+            frontendIMG.style.height = (parseFloat(catGif.style.width)/r)+'%';
+        }
+        
         displayedDelay = selectedDelay
         sup1.load_url(backendGIF.src,
             function () {
@@ -42,16 +48,19 @@ $(document).ready(function() {
     };
 
     fileButton.onchange = function (e) {
+        upload_image = true
         if (this.files && this.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 currentImage.onload = function () {
-                    memeCanvas.style.width = '90%';
-                    memeCanvas.style.height= '90%';
+                    memeCanvas.style.width = '20%';
+                    memeCanvas.style.height= '20%';
+                    memeCanvas.width = currentImage.width
+                    memeCanvas.height = currentImage.height
+                    debugger
                     memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
-                    memeCanvas.getContext('2d').drawImage(currentImage, 0, 0, currentImage.width, currentImage.height,
-                        0,0,memeCanvas.width, memeCanvas.height);
+                    memeCanvas.getContext('2d').drawImage(currentImage, 0,0);
                     currentImage.src = memeCanvas.toDataURL();
                 };
                 currentImage.src = e.target.result
