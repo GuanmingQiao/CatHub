@@ -2,7 +2,6 @@ $(document).ready(function() {
     const canvas = document.getElementById("myCanvas");
     const memeCanvas = document.getElementById("memeCanvas");
     const ctx = canvas.getContext('2d');
-    const submitMeme = document.getElementById("submitMeme");
     const downloadButton = document.getElementById("downloadButton");
     const combineButton = document.getElementById("combineButton");
     const fileButton = document.getElementById("file_upload_input");
@@ -13,9 +12,6 @@ $(document).ready(function() {
     var shouldEnd = false;
     let currentImage = new Image();
     currentImage.src = "./assets/logo.jpg";
-    memeCanvas.width = document.getElementById('dataStore').width;
-    memeCanvas.height = document.getElementById('dataStore').height;
-
 
     // On click of combine button
     combineButton.onclick = function () {
@@ -43,18 +39,6 @@ $(document).ready(function() {
 
             reader.readAsDataURL(this.files[0]);
         }
-    };
-
-    // On click of submitting meme
-    submitMeme.onclick = function () {
-        let memeInput = $("#memeInput").val();
-        if (memeInput == null || memeInput == "") {
-            alert("Please input a meme text");
-        }
-        memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
-        memeCanvas.getContext('2d').font = '48px serif';
-        memeCanvas.getContext('2d').fillText(memeInput, 10, 50);
-        currentImage.src = memeCanvas.toDataURL();
     };
 
     // Click to download
@@ -236,7 +220,6 @@ $(document).ready(function() {
             cur = cur + 1;
         }
         document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
-
     }
 
     var keyword = localStorage.getItem('cat_type');

@@ -44,7 +44,9 @@
 <script src="./script.js"></script>
     <div class="container-fluid" id="combiner" style="padding-bottom: 150px">
         <div class="header">
-            <img id="cathub-logo" src="assets/cathub.png" alt="cathub">
+            <a href="index.html">
+                <img id="cathub-logo" src="assets/cathub.png" alt="cathub">
+            </a>
         </div>
 
         <div class="row container-upper">
@@ -57,7 +59,7 @@
                         <span class="sr-only">Previous</span>
                     </a>
                     <div class="col" align="center">
-                        <div class="cat-gif-container">
+                        <div class="preview-container">
                             <img id="cat-gif" class="cat-gif" src="./assets/icons/loading-icon.gif">
                         </div>
                     </div>
@@ -81,16 +83,12 @@
             <div class="col-sm-6 text-img-container">
                 <div class="row text-img-preview">
                     <div class="col" align="center">
-                        <canvas id="memeCanvas"></canvas>
+                        <div class="preview-container">
+                            <canvas id="memeCanvas"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="row text-img-preview" id="memeSection">
-                    <div class="input-group mb-3">
-                        <input id = "memeInput" type="text" class="form-control" placeholder="Input Your meme">
-                        <div class="input-group-append">
-                            <button id = "submitMeme" class="btn btn-outline-secondary" type="button">Submit</button>
-                        </div>
-                    </div>
                     <div class="text-editor-container">
                         <div id="summernote-text-editor"></div>
                     </div>
@@ -134,8 +132,13 @@
             ['height', ['height']]
         ]
     }).on('summernote.change', function(){
-        var targetCanvas = $("#memeCanvas");
-        html2canvas(document.querySelector(".note-editable"), {canvas: document.querySelector("#memeCanvas")});
+        document.getElementsByClassName("note-editable")[0].style.backgroundColor ="transparent";
+        html2canvas(document.querySelector(".note-editable"), {
+            canvas: document.querySelector("#memeCanvas"),
+            height: 300,
+            width: 300,
+            backgroundColor: null
+        });
     });
 
 
