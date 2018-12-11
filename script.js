@@ -27,7 +27,7 @@ $(document).ready(function() {
         frontendIMG.src = currentImage.src;
         sup1.load_url(backendGIF.src,
             function () {4;
-                delay = parseInt($("#delay").val())
+                delay = parseInt($("#delay").val());
                 setTimeout(function () {
                     showPreview();
                 }, delay)
@@ -43,7 +43,7 @@ $(document).ready(function() {
                     memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
                     memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
                     currentImage.src = memeCanvas.toDataURL();
-                }
+                };
                 currentImage.src = e.target.result
             };
 
@@ -160,9 +160,6 @@ $(document).ready(function() {
 
 
 
-
-
-
     // For giphy api
     // Change the buttonname, inputquery, imagediv, loadingquery to use
     var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
@@ -184,7 +181,7 @@ $(document).ready(function() {
         xmlHttp.onreadystatechange = function() {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 callback(xmlHttp.responseText);
-        }
+        };
         xmlHttp.open("GET", theUrl, true); // true for asynchronous
         xmlHttp.send(null);
     }
@@ -212,13 +209,11 @@ $(document).ready(function() {
             var img = document.getElementById(imagediv);
             var ratio = parseFloat(gifMeta.width)/parseFloat(gifMeta.height);
             if (parseFloat(gifMeta.width) > parseFloat(gifMeta.height)) {
-                var w = parseFloat($(".preview-container").width()) * 0.9;
-                img.style.width = w +"px";
-                img.style.height = (w/ratio)+"px";
+                img.style.width = "90%";
+                img.style.height = (90.0/ratio)+"%";
             } else {
-                var h = parseFloat($(".preview-container").height()) * 0.9;
-                img.style.height = h+"px";
-                img.style.width = (h*ratio)+'px';
+                mg.style.height = "90%";
+                img.style.width = (90.0*ratio)+'%';
             }
             img.src=gifurl;
             list.push(gifurl);
@@ -227,9 +222,9 @@ $(document).ready(function() {
     }
 
     function previous(){
-        console.log(cur, list.length)
+        // console.log(cur, list.length);
         if (cur <= 0){
-            cur = list.length - 2
+            cur = list.length - 2;
         } else{
             cur = cur - 1;
         }
@@ -238,19 +233,17 @@ $(document).ready(function() {
         var img = document.getElementById(imagediv);
         var ratio = parseFloat(gifMeta.width)/parseFloat(gifMeta.height);
         if (parseFloat(gifMeta.width) > parseFloat(gifMeta.height)) {
-            var w = parseFloat($(".preview-container").width()) * 0.9;
-            img.style.width = w +"px";
-            img.style.height = (w/ratio)+"px";
+            img.style.width = "90%";
+            img.style.height = (90.0/ratio)+"%";
         } else {
-            var h = parseFloat($(".preview-container").height()) * 0.9;
-            img.style.height = h+"px";
-            img.style.width = (h*ratio)+'px';
+            img.style.height = "90%";
+            img.style.width = (90.0*ratio)+'%';
         }
         document.getElementById(imagediv).src=gifurl;
     }
 
     function next(){
-        console.log(cur, list.length)
+        // console.log(cur, list.length);
         if (cur >= list.length-2){
             cur = 0
         } else {
@@ -261,13 +254,11 @@ $(document).ready(function() {
         var img = document.getElementById(imagediv);
         var ratio = parseFloat(gifMeta.width)/parseFloat(gifMeta.height);
         if (parseFloat(gifMeta.width) > parseFloat(gifMeta.height)) {
-            var w = parseFloat($(".preview-container").width()) * 0.9;
-            img.style.width = w +"px";
-            img.style.height = (w/ratio)+"px";
+            img.style.width = "90%";
+            img.style.height = (90.0/ratio)+"%";
         } else {
-            var h = parseFloat($(".preview-container").height()) * 0.9;
-            img.style.height = h+"px";
-            img.style.width = (h*ratio)+'px';
+            img.style.height = "90%";
+            img.style.width = (90.0*ratio)+'%';
         }
         document.getElementById(imagediv).src=gifurl;
     }
@@ -284,7 +275,7 @@ $(document).ready(function() {
     $("#lucky-btn").on("click", function(){
         document.getElementById(imagediv).src = loading_src;
         getGif("cat");
-    })
+    });
 
     $("#next-icon").on("click", function(){
         document.getElementById(imagediv).src = loading_src;
@@ -296,9 +287,6 @@ $(document).ready(function() {
         previous();
     });
 
-
-
-    $( "#frontend-img" ).draggable({containment: $("#backend-gif")});
 
     function getPosition(element) {
         const {top, left, width, height} = element.getBoundingClientRect();
@@ -314,16 +302,14 @@ $(document).ready(function() {
         return [left, top];
     }
 
-
-    $("#frontend-img").mouseup(function(){
+    $("#frontend-img").draggable({containment: $("#backend-gif")})
+        .mouseup(function(){
         // debugger
         console.log("boom")
         var a = getDistanceBetweenElements(backendGIF, frontendIMG);
         document.getElementById("image-x-location").value = a[1].toString();
         document.getElementById("image-y-location").value = a[0].toString();
     });
-
-
 });
 
 

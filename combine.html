@@ -42,7 +42,7 @@
 </head>
 <body>
 <script src="./script.js"></script>
-    <div class="container-fluid" id="combiner" style="padding-bottom: 150px">
+    <div class="container-fluid" id="combiner" style="padding-bottom: 50px">
         <div class="header">
             <a href="index.html">
                 <img id="cathub-logo" src="assets/cathub.png" alt="cathub">
@@ -52,18 +52,18 @@
         <div class="row container-upper">
             <div class="col-sm-6 gif-search-container" id="gif-preview">
                 <div class="row gif-preview">
-                    <a class="gif-nav" href="#" aria-label="Previous">
+                        <div class="preview-container">
+                            <img id="cat-gif" class="cat-gif" src="./assets/icons/loading-icon.gif">
+                        </div>
+                </div>
+                <div class="row gif-preview">
+                    <a class="gif-nav prev-icon" aria-label="Previous">
                         <span aria-hidden="true">
                             <img id="prev-icon" class="nav-icon" src="assets/icons/prev-icon.png" alt="prev-icon">
                         </span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <div class="col" align="center">
-                        <div class="preview-container">
-                            <img id="cat-gif" class="cat-gif" src="./assets/icons/loading-icon.gif">
-                        </div>
-                    </div>
-                    <a class="gif-nav" href="#" aria-label="Next">
+                    <a class="gif-nav next-icon" aria-label="Next">
                         <span aria-hidden="true">
                             <img id="next-icon" class="nav-icon" src="assets/icons/next-icon.png" alt="next-icon">
                         </span>
@@ -82,11 +82,9 @@
             </div>
             <div class="col-sm-6 text-img-container">
                 <div class="row text-img-preview">
-                    <div class="col" align="center">
                         <div class="preview-container">
                             <canvas id="memeCanvas"></canvas>
                         </div>
-                    </div>
                 </div>
                 <div class="row text-img-preview" id="memeSection">
                     <div class="text-editor-container">
@@ -98,58 +96,65 @@
 
         </div>
         <img id="combineButton" src="assets/icons/combine-btn.png">
+
+        <div class="upper-container">
+            <div class="form-group">
+                <br>Preview of Image<br>
+                <br>Drag the image / words to ideal place<br>
+                <!-- <div id="bound" width=500 height=500></div> -->
+
+                <img id="backend-gif">
+                <img id="frontend-img">
+
+                <canvas style="display: none" id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+
+                <br>Choose Frame Rate<br>
+                Frame Rate: <input type="text" id="delay" value="180"><br>
+                <br>Choose Image Coordinates<br>
+                X: <input type="text" id="image-x-location" value="0"><br>
+                Y: <input type="text" id="image-y-location" value="0"><br>
+                <button id="downloadButton" type="button" class="btn btn-secondary">Download!</button>
+            </div>
+        </div>
     </div>
     <img id="dataStore" class="cat-gif" src="./assets/icons/loading-icon.gif" style="display: none">
 
-<div>
-    ==========================================================================================================================================================================================
-</div>
 
-
-
-<div class="upper-container">
-    <div class="form-group">
-        <br>Preview of Image<br>
-        <br>Drag the image / words to ideal place<br>
-        <!-- <div id="bound" width=500 height=500></div> -->
-
-        <img id="backend-gif">
-        <img id="frontend-img">
-
-        <canvas style="display: none" id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
-
-        <br>Choose Frame Rate<br>
-        Frame Rate: <input type="text" id="delay" value="180"><br>
-        <br>Choose Image Coordinates<br>
-        X: <input type="text" id="image-x-location" value="0"><br>
-        Y: <input type="text" id="image-y-location" value="0"><br>
-        <button id="downloadButton" type="button" class="btn btn-secondary">Download!</button>
-    </div>
-</div>
-<!--<link rel="stylesheet" href="./style.css">-->
 <script>
     $('#summernote-text-editor').summernote({
+        height: 100,
+        maxHeight: 100,
         toolbar: [
             // [groupName, [list of button]]
             ['style', ['bold', 'italic', 'underline', 'clear']],
             'fontname',
             'fontsize',
             'color',
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
-        ]
+            ['para', ['ul', 'ol', 'paragraph']]
+        ],
+        // disableResizeEditor: true,
+        callbacks: {
+            onInit: function (){
+                // $('.note-statusbar').hide();
+                $('#summernote-text-editor').summernote('fontName', 'Arial Black');
+                document.getElementsByClassName("note-editable")[0].style.backgroundColor ="transparent";
+                $('.note-editor').css({
+                    "background-color": "rgba(255, 255, 255, 0.7)",
+                    "border": "5px solid white",
+                    "border-radius": "10px",
+                    "-moz-box-shadow":   "inset 0 0 20px #000000",
+                    "-webkit-box-shadow": "inset 0 0 20px #000000",
+                    "box-shadow":         "inset 0 0 20px #000000"
+                });
+            }
+        }
     }).on('summernote.change', function(){
         document.getElementsByClassName("note-editable")[0].style.backgroundColor ="transparent";
         html2canvas(document.querySelector(".note-editable"), {
             canvas: document.querySelector("#memeCanvas"),
-            height: 50,
-            width: 150,
             backgroundColor: null
         });
     });
-
-
-
 </script>
 </body>
 </html>
