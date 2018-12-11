@@ -110,12 +110,13 @@
 <div class="upper-container">
     <div class="form-group">
         <br>Preview of Image<br>
-        <div id="bound" width=500 height=500></div>
+        <br>Drag the image / words to ideal place<br>
+        <!-- <div id="bound" width=500 height=500></div> -->
 
         <img id="backend-gif">
         <img id="frontend-img">
 
-        <canvas id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
+        <canvas style="display: none" id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
 
         <br>Choose Frame Rate<br>
         Frame Rate: <input type="text" id="delay" value="180"><br>
@@ -141,8 +142,8 @@
         document.getElementsByClassName("note-editable")[0].style.backgroundColor ="transparent";
         html2canvas(document.querySelector(".note-editable"), {
             canvas: document.querySelector("#memeCanvas"),
-            height: 300,
-            width: 300,
+            height: 50,
+            width: 150,
             backgroundColor: null
         });
     });

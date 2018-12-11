@@ -21,10 +21,12 @@ $(document).ready(function() {
     // On click of combine button
     combineButton.onclick = function () {
         backendGIF.src = catGif.src;
+        backendGIF.width = catGif.width * 4;
+        backendGIF.height = catGif.height * 4;
         currentImage.src = memeCanvas.toDataURL();
         frontendIMG.src = currentImage.src;
-        sup1.load_url(catGif.src,
-            function () {
+        sup1.load_url(backendGIF.src,
+            function () {4;
                 delay = parseInt($("#delay").val())
                 setTimeout(function () {
                     showPreview();
@@ -125,13 +127,15 @@ $(document).ready(function() {
         delay = parseInt($("#delay").val())
         logo_image = new Image();
         logo_image.src = currentImage.src;
+        // logo_image.width = Math.floor(currentImage.width / 4);
+        // logo_image.height = Math.floor(currentImage.height / 4);
         logo_image.onload = function () {
             const frame_image_src = sup1.get_canvas().toDataURL();
             frame_image = new Image();
             frame_image.src = frame_image_src;
             frame_image.onload = function () {
                 ctx.drawImage(frame_image, 0, 0);
-                ctx.drawImage(logo_image, parseInt($("#image-x-location").val()), parseInt($("#image-y-location").val()));
+                ctx.drawImage(logo_image, parseInt($("#image-x-location").val()), parseInt($("#image-y-location").val()), Math.floor(currentImage.width / 4), Math.floor(currentImage.height / 4));
                 try {
                     sup1.move_to(index);
                     index++;
@@ -256,8 +260,7 @@ $(document).ready(function() {
 
 
 
-    $( "#frontend-img" ).draggable();
-    // $( "#backend-gif" ).draggable({containment: $("#bound")});
+    $( "#frontend-img" ).draggable({containment: $("#backend-gif")});
 
     function getPosition(element) {
         const {top, left, width, height} = element.getBoundingClientRect();
@@ -267,8 +270,8 @@ $(document).ready(function() {
     function getDistanceBetweenElements(a, b){
         const aPosition = getPosition(a);
         const bPosition = getPosition(b);
-        const left = bPosition.x - aPosition.x;
-        const top = bPosition.y - aPosition.y;
+        const left = (bPosition.x - aPosition.x) / 4;
+        const top = (bPosition.y - aPosition.y) / 4;
         var string = "x: " + left + "; y:" + top;
         return [left, top];
     }
