@@ -166,6 +166,9 @@
             canvas: document.querySelector("#memeCanvas"),
             backgroundColor: null
         });
+        var memeCanvas = $("#memeCanvas");
+        var ratio = parseFloat(memeCanvas.width())/parseFloat(memeCanvas.height());
+        $("#memeCanvas").css({"width": '90%', "height": (90/ratio)+'%'});
     });
 </script>
 </body>
