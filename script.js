@@ -21,10 +21,12 @@ $(document).ready(function() {
     // On click of combine button
     combineButton.onclick = function () {
         backendGIF.src = catGif.src;
-        backendGIF.width = catGif.width * 4;
-        backendGIF.height = catGif.height * 4;
+        backendGIF.width = catGif.width * 2;
+        backendGIF.height = catGif.height * 2;
         currentImage.src = memeCanvas.toDataURL();
         frontendIMG.src = currentImage.src;
+        frontendIMG.width = currentImage.width * 2;
+        frontendIMG.height = currentImage.height * 2;
         sup1.load_url(backendGIF.src,
             function () {4;
                 delay = parseInt($("#delay").val());
@@ -32,6 +34,7 @@ $(document).ready(function() {
                     showPreview();
                 }, delay)
             });
+
     };
 
     fileButton.onchange = function (e) {
@@ -40,8 +43,11 @@ $(document).ready(function() {
 
             reader.onload = function (e) {
                 currentImage.onload = function () {
+                    memeCanvas.style.width = '90%';
+                    memeCanvas.style.height= '90%';
                     memeCanvas.getContext('2d').clearRect(0, 0, memeCanvas.width, memeCanvas.height);
-                    memeCanvas.getContext('2d').drawImage(currentImage, 0, 0);
+                    memeCanvas.getContext('2d').drawImage(currentImage, 0, 0, currentImage.width, currentImage.height,
+                        0,0,memeCanvas.width, memeCanvas.height);
                     currentImage.src = memeCanvas.toDataURL();
                 };
                 currentImage.src = e.target.result
@@ -159,7 +165,6 @@ $(document).ready(function() {
     }
 
 
-
     // For giphy api
     // Change the buttonname, inputquery, imagediv, loadingquery to use
     var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
@@ -193,6 +198,7 @@ $(document).ready(function() {
 
     function getGif(query) {
         console.log(query);
+        $("#gif-search-input").val(query);
         query = query.replace(' ', '+');
         var params = { 'api_key': apikey, 'q': query};
         params = encodeQueryData(params);

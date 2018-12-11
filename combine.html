@@ -52,6 +52,9 @@
         <div class="row container-upper">
             <div class="col-sm-6 gif-search-container" id="gif-preview">
                 <div class="row gif-preview">
+                    <h3>GIF Preview</h3>
+                </div>
+                <div class="row gif-preview">
                         <div class="preview-container">
                             <img id="cat-gif" class="cat-gif" src="./assets/icons/loading-icon.gif">
                         </div>
@@ -81,6 +84,9 @@
                 </div>
             </div>
             <div class="col-sm-6 text-img-container">
+                <div class="row gif-preview">
+                    <h3>Meme Preview</h3>
+                </div>
                 <div class="row text-img-preview">
                         <div class="preview-container">
                             <canvas id="memeCanvas"></canvas>
@@ -97,23 +103,25 @@
         </div>
         <img id="combineButton" src="assets/icons/combine-btn.png">
 
-        <div class="upper-container">
-            <div class="form-group">
-                <br>Preview of Image<br>
-                <br>Drag the image / words to ideal place<br>
+        <div class="container-lower">
+            <div class="lower-inner">
+                <h3>Combine Preview</h3>
+                <h6>Drag the image or meme around for an ideal placement!</h6>
                 <!-- <div id="bound" width=500 height=500></div> -->
 
-                <img id="backend-gif">
-                <img id="frontend-img">
+                <div class="combine-preview">
+                    <img id="backend-gif">
+                    <img id="frontend-img">
+                </div>
 
                 <canvas style="display: none" id="myCanvas" width=0 height=0 style="border:1px solid #000000;"></canvas>
 
-                <br>Choose Frame Rate<br>
-                Frame Rate: <input type="text" id="delay" value="180"><br>
-                <br>Choose Image Coordinates<br>
-                X: <input type="text" id="image-x-location" value="0"><br>
-                Y: <input type="text" id="image-y-location" value="0"><br>
-                <button id="downloadButton" type="button" class="btn btn-secondary">Download!</button>
+                <h4>Choose Frame Rate</h4> <input type="text" id="delay" value="180"><br>
+                <!--<br>Choose Image Coordinates<br>-->
+                <!--X: <input type="text" id="image-x-location" value="0"><br>-->
+                <!--Y: <input type="text" id="image-y-location" value="0"><br>-->
+
+                <img src="assets/icons/download-icon.png" class="download-btn" id="downloadButton">
             </div>
         </div>
     </div>
@@ -122,7 +130,7 @@
 
 <script>
     $('#summernote-text-editor').summernote({
-        height: 100,
+        height: 90,
         maxHeight: 100,
         toolbar: [
             // [groupName, [list of button]]
@@ -137,10 +145,13 @@
             onInit: function (){
                 // $('.note-statusbar').hide();
                 $('#summernote-text-editor').summernote('fontName', 'Arial Black');
+                $('#summernote-text-editor').summernote('justifyCenter');
+                $('#summernote-text-editor').summernote('lineHeight', '1');
+                $('#summernote-text-editor').summernote('foreColor', 'white');
                 document.getElementsByClassName("note-editable")[0].style.backgroundColor ="transparent";
                 $('.note-editor').css({
-                    "background-color": "rgba(255, 255, 255, 0.7)",
-                    "border": "5px solid white",
+                    "background-color": "rgba(0, 0, 0, 0.7)",
+                    "border": "5px solid #2b2b2b",
                     "border-radius": "10px",
                     "-moz-box-shadow":   "inset 0 0 20px #000000",
                     "-webkit-box-shadow": "inset 0 0 20px #000000",
