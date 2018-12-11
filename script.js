@@ -161,97 +161,104 @@ $(document).ready(function() {
             animate(index % length, length);
         }, delay));
     }
-});
 
 
 
-// For giphy api
-// Change the buttonname, inputquery, imagediv, loadingquery to use
-var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
-var list = [];
-var cur = -1;
-var imagediv = "cat-gif";
 
-function encodeQueryData(data)
-{
-    var ret = [];
-    for (var d in data)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    return ret.join("&");
-}
 
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+
+    // For giphy api
+    // Change the buttonname, inputquery, imagediv, loadingquery to use
+    var apikey = '9wz9zYZz33IU6hIZv7Vr9r6aBp2lmq2k';
+    var list = [];
+    var cur = -1;
+    var imagediv = "cat-gif";
+
+    function encodeQueryData(data)
+    {
+        var ret = [];
+        for (var d in data)
+            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+        return ret.join("&");
     }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous
-    xmlHttp.send(null);
-}
 
-/*
-* The following functions are what do the work for retrieving and displaying gifs
-* that we search for.
-*/
+    function httpGetAsync(theUrl, callback)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.send(null);
+    }
 
-function getGif(query) {
-    console.log(query);
-    query = query.replace(' ', '+');
-    var params = { 'api_key': apikey, 'q': query};
-    params = encodeQueryData(params);
+    /*
+    * The following functions are what do the work for retrieving and displaying gifs
+    * that we search for.
+    */
 
-    // api from https://github.com/Giphy/GiphyAPI#search-endpoint
+    function getGif(query) {
+        console.log(query);
+        query = query.replace(' ', '+');
+        var params = { 'api_key': apikey, 'q': query};
+        params = encodeQueryData(params);
 
-    httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
-        var gifs = JSON.parse(data);
-        list = gifs.data
-        var rand = Math.floor(Math.random() * gifs.data.length);
-        cur = rand
-        var gif = list[cur].images.fixed_width.url;
-        document.getElementById(imagediv).src=gif;
-        list.push(gif);
-        console.log(gifs.data);
+        // api from https://github.com/Giphy/GiphyAPI#search-endpoint
+
+        httpGetAsync('http://api.giphy.com/v1/gifs/search?' + params, function(data) {
+            var gifs = JSON.parse(data);
+            list = gifs.data
+            var rand = Math.floor(Math.random() * gifs.data.length);
+            cur = rand
+            var gif = list[cur].images.fixed_width.url;
+            document.getElementById(imagediv).src=gif;
+            list.push(gif);
+            console.log(gifs.data);
+        });
+    }
+
+    function previous(){
+        console.log(cur, list.length)
+        if (cur <= 0){
+            cur = list.length - 2
+        } else{
+            cur = cur - 1;
+        }
+        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+    }
+
+    function next(){
+        console.log(cur, list.length)
+        if (cur >= list.length-2){
+            cur = 0
+        } else {
+            cur = cur + 1;
+        }
+        document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+
+    }
+
+    var keyword = localStorage.getItem('cat_type');
+    getGif( keyword+ " cat");
+
+    $("#search-btn").on("click", function() {
+        InputQuery = $("#gif-search-input").val() + " cat";
+        getGif(InputQuery);
     });
-}
 
-function previous(){
-    console.log(cur, list.length)
-    if (cur <= 0){
-        cur = list.length - 2
-    } else{
-        cur = cur - 1;
-    }
-    document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
-}
+    $("#next-icon").on("click", function(){
+        next();
+    });
 
-function next(){
-    console.log(cur, list.length)
-    if (cur >= list.length-2){
-        cur = 0
-    } else {
-        cur = cur + 1;
-    }
-    document.getElementById(imagediv).src=list[cur].images.fixed_width.url;
+    $("#prev-icon").on("click", function(){
+        previous();
+    });
 
-}
-
-var keyword = localStorage.getItem('cat_type');
-getGif( keyword+ " cat");
-
-$("#search-btn").on("click", function() {
-    InputQuery = $("#gif-search-input").val() + " cat";
-    getGif(InputQuery);
 });
 
-$("#next-icon").on("click", function(){
-    next();
-});
 
-$("#prev-icon").on("click", function(){
-    previous();
-});
+
 
 
 
