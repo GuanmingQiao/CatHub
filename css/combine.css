@@ -129,10 +129,14 @@
     background-image: url("../assets/bkgd.jpg")
 }
 
-/*.coordinates {*/
-    /*display: none;*/
-/*}*/
+.coordinates {
+    display: none;
+}
 
 .download-btn {
     width: 300px;
+}
+
+.jsgif {
+    display: none;
 }
